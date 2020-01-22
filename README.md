@@ -48,7 +48,7 @@ I’ve managed to get the bearings of where I want to go, and decided I needed a
 <li><a href="http://ReadME.md">ReadME.md</a> - this File</li>
 </ul>
 <h1 id="tutorials-and-useful-links">Tutorials and Useful Links</h1>
-<p>One of the first things I found out is that the onboard bluetooth adaptor from the PI has some issues when working with Wifi, and, at least during development, I will be using Wifi, so, I bought a Bluetooth Dongle and disabled the onboard adapter following the instructions on this link:<br>
+<p>One of the first things I found out is that the onboard bluetooth adapter from the PI has some issues when working with Wifi, and, at least during development, I will be using Wifi, so, I bought a Bluetooth Dongle and disabled the onboard adapter following the instructions on this link:<br>
 <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=178485">https://www.raspberrypi.org/forums/viewtopic.php?t=178485</a></p>
 <p>They will be listed here, and probably separeted by function that I used them.</p>
 
