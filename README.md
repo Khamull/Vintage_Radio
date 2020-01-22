@@ -50,5 +50,8 @@ I’ve managed to get the bearings of where I want to go, and decided I needed a
 <h1 id="tutorials-and-useful-links">Tutorials and Useful Links</h1>
 <p>One of the first things I found out is that the onboard bluetooth adapter from the PI has some issues when working with Wifi, and, at least during development, I will be using Wifi, so, I bought a Bluetooth Dongle and disabled the onboard adapter following the instructions on this link:<br>
 <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=178485">https://www.raspberrypi.org/forums/viewtopic.php?t=178485</a></p>
+<p>After that, I do have to confirgure the Bluetooth to be a audio Sync, and this two tutorials helped me a lot to understand what I was supossed to do.</p>
+<p><a href="https://docs.google.com/document/d/12cK4heNd7kY3jYZI_sW1AD407dn_ds-9zZdX4qs-TJg/edit#">https://docs.google.com/document/d/12cK4heNd7kY3jYZI_sW1AD407dn_ds-9zZdX4qs-TJg/edit#</a><br>
+<a href="https://gist.github.com/oleq/24e09112b07464acbda1">https://gist.github.com/oleq/24e09112b07464acbda1</a></p>
 <p>They will be listed here, and probably separeted by function that I used them.</p>
 
