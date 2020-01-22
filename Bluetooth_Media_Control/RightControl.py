@@ -17,10 +17,12 @@ GPIO.setup(clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+
 isPaused = False
 clkLastState = GPIO.input(clk)
 btnLastState = GPIO.input(btn)
 adapter = None
+
 if __name__ == '__main__':
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
@@ -42,34 +44,22 @@ if __name__ == '__main__':
         while True:
             #print("Started")
             btnPushed = GPIO.input(btn)
-            if ((not btnLastState) and btnPushed):
+            clkState = GPIO.input(clk)
+            dtState = GPIO.input(dt)
+            if clkState != clkLastState:
                 if isPaused:
                     isPaused = False
-                    print("Play")
-                    player_iface.Play()
-                    sleep(1)
+                if dtState != clkState:
+                    player_iface.Next()
+                    print("Next")
+                    sleep(0.9)
                 else:
-                    isPaused = True
-                    print("Pause")
-                    player_iface.Pause()
-                    sleep(1)
-            else:
-                clkState = GPIO.input(clk)
-                dtState = GPIO.input(dt)
-                if clkState != clkLastState:
-                    if isPaused:
-                        isPaused = False
-                    if dtState != clkState:
-                        player_iface.Next()
-                        print("Next")
-                        sleep(0.9)
-                    else:
-                        player_iface.Previous()
-                        print("Previous")
-                        sleep(0.9)
+                    player_iface.Previous()
+                    print("Previous")
+                    sleep(0.9)
 
-                clkLastState = clkState
-            btnLastState = btnPushed
+            clkLastState = clkState
+        btnLastState = btnPushed
     finally:
         GPIO.cleanup()
     
