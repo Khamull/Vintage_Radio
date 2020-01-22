@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 from RPi import GPIO
 from time import sleep
-#import subprocess
+
 from subprocess import DEVNULL, STDOUT, check_call
 import sys
 
@@ -28,7 +28,7 @@ btnLastState = GPIO.input(btn)
 #command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
 command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
 check_call(command, stdout=DEVNULL, stderr=STDOUT)
-
+print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
 try:
     while True:
         btnPushed = GPIO.input(btn)
