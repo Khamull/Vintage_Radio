@@ -28,41 +28,47 @@ btnLastState = GPIO.input(btn)
 #command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
 command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
 check_call(command, stdout=DEVNULL, stderr=STDOUT)
-print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+#print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+
+def button_callback(channel):
+    global btnLastState
+    global preVolume
+    global volume
+    global isMuted
+    btnPushed = GPIO.input(btn)
+    if isMuted:
+        volume = preVolume
+        isMuted = False
+        print("Unmuted")
+    else:
+        preVolume = volume
+        volume = 0
+        isMuted = True
+        print("Muted")
+    command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+    check_call(command, stdout=DEVNULL, stderr=STDOUT)
+    btnLastState = btnPushed
+GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=300)
+
 try:
     while True:
-        btnPushed = GPIO.input(btn)
-        if ((not btnLastState) and btnPushed):
+        clkState = GPIO.input(clk)
+        dtState = GPIO.input(dt)
+        if clkState != clkLastState:
             if isMuted:
-                volume = preVolume
                 isMuted = False
-                print("Unmuted")
-            else:
-                preVolume = volume
                 volume = 0
-                isMuted = True
-                print("Muted")
+            if dtState != clkState:
+                volume += step
+                if volume > max:
+                    volume = max
+            else:
+                volume -= step
+                if volume < min:
+                    volume = min
+            print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
             command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
             check_call(command, stdout=DEVNULL, stderr=STDOUT)
-        else:
-            clkState = GPIO.input(clk)
-            dtState = GPIO.input(dt)
-            if clkState != clkLastState:
-                if isMuted:
-                    isMuted = False
-                    volume = 0
-                if dtState != clkState:
-                    volume += step
-                    if volume > max:
-                        volume = max
-                else:
-                    volume -= step
-                    if volume < min:
-                        volume = min
-                print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
-                command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
-                check_call(command, stdout=DEVNULL, stderr=STDOUT)
-            clkLastState = clkState
-        btnLastState = btnPushed
+        clkLastState = clkState
 finally:
     GPIO.cleanup()
