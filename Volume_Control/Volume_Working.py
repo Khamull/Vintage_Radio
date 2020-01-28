@@ -28,7 +28,31 @@ btnLastState = GPIO.input(btn)
 #command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
 command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
 check_call(command, stdout=DEVNULL, stderr=STDOUT)
-#print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+
+def volume_callback(channel):
+    global preVolume
+    global volume
+    global isMuted
+    global clkLastState
+    clkState = GPIO.input(clk)
+    dtState = GPIO.input(dt)
+    if clkState != clkLastState:
+        if isMuted:
+            isMuted = False
+            volume = 0
+        if dtState != clkState:
+            volume += step
+            if volume > max:
+                volume = max
+        else:
+            volume -= step
+            if volume < min:
+                volume = min
+        print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+        command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+        check_call(command, stdout=DEVNULL, stderr=STDOUT)
+    clkLastState = clkState
 
 def button_callback(channel):
     global btnLastState
@@ -48,27 +72,9 @@ def button_callback(channel):
     command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
     check_call(command, stdout=DEVNULL, stderr=STDOUT)
     btnLastState = btnPushed
+    
+#adding event listener for click
 GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=300)
+#listening for a input to be able to mesure both!
+GPIO.add_event_detect(clk,GPIO.RISING,callback=volume_callback,bouncetime=4)
 
-try:
-    while True:
-        clkState = GPIO.input(clk)
-        dtState = GPIO.input(dt)
-        if clkState != clkLastState:
-            if isMuted:
-                isMuted = False
-                volume = 0
-            if dtState != clkState:
-                volume += step
-                if volume > max:
-                    volume = max
-            else:
-                volume -= step
-                if volume < min:
-                    volume = min
-            print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
-            command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
-            check_call(command, stdout=DEVNULL, stderr=STDOUT)
-        clkLastState = clkState
-finally:
-    GPIO.cleanup()
