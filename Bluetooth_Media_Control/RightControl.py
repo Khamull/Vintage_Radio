@@ -23,6 +23,41 @@ clkLastState = GPIO.input(clk)
 btnLastState = GPIO.input(btn)
 adapter = None
 
+def pause_button_callback(channel):
+    global isPaused, player_iface
+    btnPushed = GPIO.input(btn)
+    if isPaused:
+        player_iface.Play()
+        isPaused = False
+        print("Play")
+    else:
+        player_iface.Pause()
+        isPaused = True
+        print("Pause")
+    btnLastState = btnPushed
+
+def next_prev_callback(channel):
+    global isPaused, clkLastState, btnLastState, player_iface
+    clkState = GPIO.input(clk)
+    dtState = GPIO.input(dt)
+    if clkState != clkLastState:
+        if isPaused:
+            isPaused = False
+        if dtState != clkState:
+            #sleep(0.005)
+            if GPIO.input(dt) == 0:
+                player_iface.Next()
+                print("Next")
+                #sleep(0.9)
+        else:
+            #sleep(0.005)
+            if GPIO.input(clk) == 0:
+                player_iface.Previous()
+                print("Previous")
+                #sleep(0.9)
+    clkLastState = clkState
+    
+    
 if __name__ == '__main__':
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
@@ -38,32 +73,14 @@ if __name__ == '__main__':
                     player,
                     dbus_interface='org.bluez.MediaPlayer1')
             break
-#    if not adapter:
-#        Sys.exit('Error: Media Player not found.')
-    try:
-        while True:
-            #print("Started")
-            btnPushed = GPIO.input(btn)
-            clkState = GPIO.input(clk)
-            dtState = GPIO.input(dt)
-            if clkState != clkLastState:
-                if isPaused:
-                    isPaused = False
-                if dtState != clkState:
-                    player_iface.Next()
-                    print("Next")
-                    sleep(0.9)
-                else:
-                    player_iface.Previous()
-                    print("Previous")
-                    sleep(0.9)
-
-            clkLastState = clkState
-        btnLastState = btnPushed
-    finally:
-        GPIO.cleanup()
-    
-    
+        
+GPIO.add_event_detect(clk,GPIO.FALLING,callback=next_prev_callback,bouncetime=10)
+GPIO.add_event_detect(btn,GPIO.FALLING,callback=pause_button_callback,bouncetime=300)
+try:
+    while True:
+        pass
+finally:
+    GPIO.cleanup() 
 
 
 

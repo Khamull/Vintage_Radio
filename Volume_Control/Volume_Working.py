@@ -77,4 +77,9 @@ def button_callback(channel):
 GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=300)
 #listening for a input to be able to mesure both!
 GPIO.add_event_detect(clk,GPIO.RISING,callback=volume_callback,bouncetime=4)
+try:
+    while True:
+        pass
+finally:
+    GPIO.cleanup() 
 
