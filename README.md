@@ -56,6 +56,8 @@ I’ve managed to get the bearings of where I want to go, and decided I needed a
 <p>Small e-book with a series of basic “how to” tutorials!<br>
 <a href="https://books.google.com.br/books?id=xYhMlilTwC4C&amp;pg=PA105&amp;lpg=PA105&amp;dq=counting+the+times+a+button+is+pushed+in+python+raspberry+pi&amp;source=bl&amp;ots=W4bdeBlepX&amp;sig=ACfU3U0q5Chr5-g-Src6fnVqU8M5HSBflQ&amp;hl=pt-BR&amp;sa=X&amp;ved=2ahUKEwim1dLHrKTnAhUFK7kGHWNmANoQ6AEwAnoECAoQAQ#v=onepage&amp;q=counting%20the%20times%20a%20button%20is%20pushed%20in%20python%20raspberry%20pi&amp;f=false">https://books.google.com.br/books?id=xYhMlilTwC4C&amp;pg=PA105&amp;lpg=PA105&amp;dq=counting+the+times+a+button+is+pushed+in+python+raspberry+pi&amp;source=bl&amp;ots=W4bdeBlepX&amp;sig=ACfU3U0q5Chr5-g-Src6fnVqU8M5HSBflQ&amp;hl=pt-BR&amp;sa=X&amp;ved=2ahUKEwim1dLHrKTnAhUFK7kGHWNmANoQ6AEwAnoECAoQAQ#v=onepage&amp;q=counting the times a button is pushed in python raspberry pi&amp;f=false</a></p>
 <p>This Tutorial/Solution helped me to avoid false hits specially in the RightControl(next/prev/pause/play functions)<br>
-<a href="https://www.raspberrypi.org/forums/viewtopic.php?t=134394">https://www.raspberrypi.org/forums/viewtopic.php?t=134394</a><br>
+<a href="https://www.raspberrypi.org/forums/viewtopic.php?t=134394">https://www.raspberrypi.org/forums/viewtopic.php?t=134394</a></p>
+<p>Bluetooth Audio controll using bus<br>
+<a href="https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/">https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/</a><br>
 They will be listed here, and probably separeted by function that I used them.</p>
 
