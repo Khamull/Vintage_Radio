@@ -4,7 +4,7 @@
 ---
 
 <h1 id="welcome-to-my-vintage-radio-project-with-raspberry-pi">Welcome To My Vintage Radio Project With Raspberry Pi</h1>
-<p>Hi! I’m building a custom head unit(not sure if I can call it that) for my vintage VW BUS, is a 1965 beauty(at least me and my wife think so)<br>
+<p>Hi! I’m building a custom head unit(not sure if I can call it that) for my vintage VW BUS, is a 1965 beauty(at least me and my wife think so).<br>
 Here is a picture of part of it’s interior, as you can see, the space for the radio is very period specific, and, there are not much radios that can fit in there and does not need some type of adaptation, or cutting trough the metal.<br>
 <img src="https://scontent.fcgh11-1.fna.fbcdn.net/v/t1.0-9/43462799_309476856304772_5431551599711354880_o.jpg?_nc_cat=101&amp;_nc_oc=AQmifq89rNEnwnpwOIC42puo4Ow970gbRcCEg4C2xV-H1epM3RZIuB6Ywca6f8DWKjI&amp;_nc_ht=scontent.fcgh11-1.fna&amp;oh=068ccf13b89e9b637ea71835ffe35e19&amp;oe=5ED81DF3" alt="enter image description here"></p>
 <p>Looking at old vintage radios that are period accurate gave me an Ideia!<br>
@@ -53,5 +53,7 @@ I’ve managed to get the bearings of where I want to go, and decided I needed a
 <p>After that, I do have to confirgure the Bluetooth to be a audio Sync, and this two tutorials helped me a lot to understand what I was supossed to do.</p>
 <p><a href="https://docs.google.com/document/d/12cK4heNd7kY3jYZI_sW1AD407dn_ds-9zZdX4qs-TJg/edit#">https://docs.google.com/document/d/12cK4heNd7kY3jYZI_sW1AD407dn_ds-9zZdX4qs-TJg/edit#</a><br>
 <a href="https://gist.github.com/oleq/24e09112b07464acbda1">https://gist.github.com/oleq/24e09112b07464acbda1</a></p>
+<p>Small e-book with a series of basic “how to” tutorials!<br>
+<a href="https://books.google.com.br/books?id=xYhMlilTwC4C&amp;pg=PA105&amp;lpg=PA105&amp;dq=counting+the+times+a+button+is+pushed+in+python+raspberry+pi&amp;source=bl&amp;ots=W4bdeBlepX&amp;sig=ACfU3U0q5Chr5-g-Src6fnVqU8M5HSBflQ&amp;hl=pt-BR&amp;sa=X&amp;ved=2ahUKEwim1dLHrKTnAhUFK7kGHWNmANoQ6AEwAnoECAoQAQ#v=onepage&amp;q=counting%20the%20times%20a%20button%20is%20pushed%20in%20python%20raspberry%20pi&amp;f=false">https://books.google.com.br/books?id=xYhMlilTwC4C&amp;pg=PA105&amp;lpg=PA105&amp;dq=counting+the+times+a+button+is+pushed+in+python+raspberry+pi&amp;source=bl&amp;ots=W4bdeBlepX&amp;sig=ACfU3U0q5Chr5-g-Src6fnVqU8M5HSBflQ&amp;hl=pt-BR&amp;sa=X&amp;ved=2ahUKEwim1dLHrKTnAhUFK7kGHWNmANoQ6AEwAnoECAoQAQ#v=onepage&amp;q=counting the times a button is pushed in python raspberry pi&amp;f=false</a></p>
 <p>They will be listed here, and probably separeted by function that I used them.</p>
 
