@@ -1,3 +1,8 @@
+---
+
+
+---
+
 <h1 id="welcome-to-my-vintage-radio-project-with-raspberry-pi">Welcome To My Vintage Radio Project With Raspberry Pi</h1>
 <p>Hi! I’m building a custom head unit(not sure if I can call it that) for my vintage VW BUS, is a 1965 beauty(at least me and my wife think so).<br>
 Here is a picture of part of it’s interior, as you can see, the space for the radio is very period specific, and, there are not much radios that can fit in there and does not need some type of adaptation, or cutting trough the metal.<br>
@@ -11,7 +16,14 @@ I’ve decided to use two rotary encoders to control the PI and a OLED Display t
 I’ve managed to get the bearings of where I want to go, and decided I needed a model of my car’s panel, and, the Ideia looks like this:<br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011818.jpg?raw=true" alt="enter image description here"><br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011825.jpg?raw=true" alt="enter image description here"><br>
-<strong>Still missing the OLED Display, I’m waiting for it to arrive.</strong></p>
+Still missing the OLED Display, I’m waiting for it to arrive.<br>
+<strong>Update, just got the OLED Display, now another fun part begins!</strong><br>
+Below Some Photos!<br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161011.jpg?raw=true" alt="Front OLED Display"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161328.jpg?raw=true" alt="Back Oled Display"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
+Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
+<a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a></p>
 <p>I will list below the tutorial that get me going, the files that I’m using and what we have on them and will update the photos and progress accordingly :)</p>
 <h1 id="files">Files</h1>
 <ul>
