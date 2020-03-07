@@ -67,4 +67,8 @@ Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
 <p>Bluetooth Audio controll using bus<br>
 <a href="https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/">https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/</a><br>
 They will be listed here, and probably separeted by function that I used them.</p>
+<p>Since I do not have any of the adafruit easy to use displays, and my is a SSD1309, I’m going to follow the answer from this guy and test Luma<br>
+<a href="https://raspberrypi.stackexchange.com/questions/106288/how-to-connect-raspberry-pi-4-to-sparkfun-ssd1306-ssd1309-oled-transparent-dis">https://raspberrypi.stackexchange.com/questions/106288/how-to-connect-raspberry-pi-4-to-sparkfun-ssd1306-ssd1309-oled-transparent-dis</a><br>
+<a href="https://luma-oled.readthedocs.io/en/latest/python-usage.html">https://luma-oled.readthedocs.io/en/latest/python-usage.html</a><br>
+Starting by getting PIP or Pillow, not sure what does what right now!</p>
 
