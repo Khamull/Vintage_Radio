@@ -5,6 +5,7 @@ from time import sleep
 from subprocess import DEVNULL, STDOUT, check_call
 import sys
 
+
 clk = 27
 dt = 22
 btn = 17
