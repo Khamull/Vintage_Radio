@@ -25,7 +25,7 @@ Below Some Photos!<br>
 Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
 <a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a><br>
 Had to tweak a little to get the disply working, and, since a few weeks have passed, here is a short video with the working test from LUMA Core, it worked like a charm once I figured out I had old connectors with issues in my jumpers:</p>
-<p><img src="https://www.youtube.com/watch?v=o4S2uLBKm1A" alt="enter image description here"></p>
+<p><a href="https://www.youtube.com/watch?v=o4S2uLBKm1A">https://www.youtube.com/watch?v=o4S2uLBKm1A</a></p>
 <p><strong>I will list below the tutorial that get me going, the files that I’m using and what we have on them and will update the photos and progress accordingly :)</strong></p>
 <h1 id="files">Files</h1>
 <ul>
