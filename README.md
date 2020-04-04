@@ -23,8 +23,10 @@ Below Some Photos!<br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161328.jpg?raw=true" alt="Back Oled Display"><br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
 Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
-<a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a></p>
-<p>I will list below the tutorial that get me going, the files that I’m using and what we have on them and will update the photos and progress accordingly :)</p>
+<a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a><br>
+Had to tweak a little to get the disply working, and, since a few weeks have passed, here is a short video with the working test from LUMA Core, it worked like a charm once I figured out I had old connectors with issues in my jumpers:</p>
+<p><a href="https://www.youtube.com/watch?v=o4S2uLBKm1A">https://www.youtube.com/watch?v=o4S2uLBKm1A</a></p>
+<p><strong>I will list below the tutorial that get me going, the files that I’m using and what we have on them and will update the photos and progress accordingly :)</strong></p>
 <h1 id="files">Files</h1>
 <ul>
 <li>Bluetooth_Media_Control
@@ -67,6 +69,7 @@ Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
 <p>Bluetooth Audio controll using bus<br>
 <a href="https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/">https://scribles.net/controlling-bluetooth-audio-on-raspberry-pi/</a><br>
 They will be listed here, and probably separeted by function that I used them.</p>
+<p>[Edit] Using Luma was the best choice all along, their step by step for hardware and software for SSD1309 worked like a charm!</p>
 <p>Since I do not have any of the adafruit easy to use displays, and my is a SSD1309, I’m going to follow the answer from this guy and test Luma<br>
 <a href="https://raspberrypi.stackexchange.com/questions/106288/how-to-connect-raspberry-pi-4-to-sparkfun-ssd1306-ssd1309-oled-transparent-dis">https://raspberrypi.stackexchange.com/questions/106288/how-to-connect-raspberry-pi-4-to-sparkfun-ssd1306-ssd1309-oled-transparent-dis</a><br>
 <a href="https://luma-oled.readthedocs.io/en/latest/python-usage.html">https://luma-oled.readthedocs.io/en/latest/python-usage.html</a><br>
