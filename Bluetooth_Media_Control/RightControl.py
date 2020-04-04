@@ -24,7 +24,7 @@ btnLastState = GPIO.input(btn)
 adapter = None
 
 def pause_button_callback(channel):
-    global isPaused, player_iface
+    global isPaused, player_iface, btnLastState
     btnPushed = GPIO.input(btn)
     if isPaused:
         player_iface.Play()

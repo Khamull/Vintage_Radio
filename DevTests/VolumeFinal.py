@@ -1,29 +1,35 @@
-#! /usr/bin/env python
+#!/usr/bin/python3
 from RPi import GPIO
 from time import sleep
-import subprocess
+
+from subprocess import DEVNULL, STDOUT, check_call
+
+
 
 clk = 27
-dt = 17
-btn = 22
+dt = 22
+btn = 17
 
 # vals from output of amixer cget numid=1
 min = 0
-max = 65536
-
+max = 100
+step = 5
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 isMuted = False
-preVolume = volume = 50  # give it some volume to start with
+preVolume = volume = 50 # give it some volume to start with
 clkLastState = GPIO.input(clk)
 btnLastState = GPIO.input(btn)
 
 #amixer set Master 50%
-command = ["amixer", "sset", "Master,0", "{}%".format(volume)]
-subprocess.call(command)
+#amixer -c 0  cset numid=1 100%
+#command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
+command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+check_call(command, stdout=DEVNULL, stderr=STDOUT)
+print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
 
 try:
     while True:
@@ -38,8 +44,9 @@ try:
                 volume = 0
                 isMuted = True
                 #print("Muted")
-            command = ["amixer", "sset", "Master", "{}%".format(volume)]
-            subprocess.call(command)
+            print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+            command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+            check_call(command, stdout=DEVNULL, stderr=STDOUT)
             sleep(0.10)
         else:
             clkState = GPIO.input(clk)
@@ -57,8 +64,9 @@ try:
                     if volume < min:
                         volume = min
                 #print ("{:d} ({:.0%})".format(volume, float(volume)/float(max)))
-                command = ["amixer", "sset", "Master", "{}%".format(volume)]
-                subprocess.call(command)
+                print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+                command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+                check_call(command, stdout=DEVNULL, stderr=STDOUT)
             clkLastState = clkState
         btnLastState = btnPushed
 finally:

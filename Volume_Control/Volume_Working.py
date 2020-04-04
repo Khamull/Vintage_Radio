@@ -3,7 +3,7 @@ from RPi import GPIO
 from time import sleep
 
 from subprocess import DEVNULL, STDOUT, check_call
-import sys
+
 
 
 clk = 27
@@ -20,7 +20,7 @@ GPIO.setup(dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 isMuted = False
-preVolume = volume = 50 # give it some volume to start with
+preVolume = volume = 100 # give it some volume to start with
 clkLastState = GPIO.input(clk)
 btnLastState = GPIO.input(btn)
 
@@ -32,10 +32,7 @@ check_call(command, stdout=DEVNULL, stderr=STDOUT)
 print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
 
 def volume_callback(channel):
-    global preVolume
-    global volume
-    global isMuted
-    global clkLastState
+    global preVolume, volume, isMuted, clkLastState
     clkState = GPIO.input(clk)
     dtState = GPIO.input(dt)
     if clkState != clkLastState:
@@ -76,11 +73,8 @@ def button_callback(channel):
     
 #adding event listener for click
 GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=300)
+
 #listening for a input to be able to mesure both!
-GPIO.add_event_detect(clk,GPIO.RISING,callback=volume_callback,bouncetime=4)
-try:
-    while True:
-        pass
-finally:
-    GPIO.cleanup() 
+GPIO.add_event_detect(clk,GPIO.FALLING,callback=volume_callback,bouncetime=4)
+
 

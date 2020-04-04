@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from subprocess import DEVNULL, STDOUT, check_call
-import Display_Control.DisplayTemplate as dt
+
 isMuted = False
 btn = 17
 
@@ -23,7 +23,6 @@ def button_callback(channel):
         volume = 0
         isMuted = True
         print("Muted")
-        dt.update_volume_status(volume, "play")
     command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
     check_call(command, stdout=DEVNULL, stderr=STDOUT)
 GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=150)

@@ -3,6 +3,6 @@
 
 music_info = "     "
 next_music_info =  "     "
-volume = 5
+volume = 100
 status = "play"
 

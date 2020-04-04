@@ -15,7 +15,6 @@ def button_callback(channel):
     global preVolume
     global volume
     global isMuted
-    btnPushed = GPIO.input(btn)
     if isMuted:
         volume = preVolume
         isMuted = False
