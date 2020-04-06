@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from RPi import GPIO
 from time import sleep
-
+import config as cf
 from subprocess import DEVNULL, STDOUT, check_call
 
 
@@ -20,16 +20,9 @@ GPIO.setup(dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 isMuted = False
-preVolume = volume = 100 # give it some volume to start with
+preVolume = volume = cf.volume # give it some volume to start with
 clkLastState = GPIO.input(clk)
 btnLastState = GPIO.input(btn)
-
-#amixer set Master 50%
-#amixer -c 0  cset numid=1 100%
-#command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
-command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
-check_call(command, stdout=DEVNULL, stderr=STDOUT)
-print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
 
 def volume_callback(channel):
     global preVolume, volume, isMuted, clkLastState
@@ -48,6 +41,7 @@ def volume_callback(channel):
             if volume < min:
                 volume = min
         print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+        cf.volume = volume
         command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
         check_call(command, stdout=DEVNULL, stderr=STDOUT)
     clkLastState = clkState
@@ -68,13 +62,27 @@ def button_callback(channel):
         isMuted = True
         print("Muted")
     command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+    cf.volume = volume
     check_call(command, stdout=DEVNULL, stderr=STDOUT)
     btnLastState = btnPushed
     
+
+
+def main():
+    #amixer set Master the volume defined in config
+    #amixer -c 0  cset numid=1 100%
+    #command = ["amixer", "-c", "0", "cset", "numid=1", "{}%".format(volume)]
+    command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+    check_call(command, stdout=DEVNULL, stderr=STDOUT)
+    print("Volume ({:.0%})".format(float(volume)/float(max)), end="\r")
+
 #adding event listener for click
 GPIO.add_event_detect(btn,GPIO.RISING,callback=button_callback, bouncetime=300)
-
 #listening for a input to be able to mesure both!
-GPIO.add_event_detect(clk,GPIO.FALLING,callback=volume_callback,bouncetime=4)
+GPIO.add_event_detect(clk,GPIO.FALLING,callback=volume_callback,bouncetime=4)   
 
-
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
