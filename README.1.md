@@ -9,14 +9,14 @@ I’ve decided to use two rotary encoders to control the PI and a OLED Display t
 <p>I’m relatively new to Raspberry Pi and to Python, but, since I’m a programmer, what could go wrong, right?</p>
 <p><strong>The Project so Far</strong><br>
 I’ve managed to get the bearings of where I want to go, and decided I needed a model of my car’s panel, and, the Ideia looks like this:<br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011818.jpg?raw=true" alt="enter image description here"><br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011825.jpg?raw=true" alt="enter image description here"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200122_011818.jpg?raw=true" alt="enter image description here"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200122_011825.jpg?raw=true" alt="enter image description here"><br>
 Still missing the OLED Display, I’m waiting for it to arrive.<br>
 <strong>Update, just got the OLED Display, now another fun part begins!</strong><br>
 Below Some Photos!<br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161011.jpg?raw=true" alt="Front OLED Display"><br>
 <img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161328.jpg?raw=true" alt="Back Oled Display"><br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
 Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
 <a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a><br>
 Had to tweak a little to get the disply working, and, since a few weeks have passed, here is a short video with the working test from LUMA Core, it worked like a charm once I figured out I had old connectors with issues in my jumpers:</p>
@@ -72,5 +72,5 @@ Starting by getting PIP or Pillow, not sure what does what right now!<br>
 <a href="https://pillow.readthedocs.io/en/latest/installation.html">https://pillow.readthedocs.io/en/latest/installation.html</a></p>
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDE1MDA2NjhdfQ==
+eyJoaXN0b3J5IjpbLTMxNTUwMjUwOCwtMTI0MTUwMDY2OF19
 -->
