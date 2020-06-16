@@ -5,11 +5,10 @@
 
 import dbus, dbus.mainloop.glib
 from RPi import GPIO
-from time import sleep
 import config as cf
 
-clk = 6
-dt = 26
+clk = 26
+dt = 6
 btn = 13
 
 GPIO.setmode(GPIO.BCM)
@@ -69,7 +68,9 @@ def main():
     bus = dbus.SystemBus()
     obj = bus.get_object('org.bluez', "/")
     mgr = dbus.Interface(obj, 'org.freedesktop.DBus.ObjectManager')
-    while not adapter:
+    if not adapter:
+        cf.message = "No Bluetooth Source!"
+        print("No Bluetooth Source!")
         for path, ifaces in mgr.GetManagedObjects().items():
             adapter = ifaces.get('org.bluez.MediaPlayer1')
             if not adapter:
@@ -79,6 +80,9 @@ def main():
                     player,
                     dbus_interface='org.bluez.MediaPlayer1')
             break
+    else:
+        cf.message = ""
+        print("Bluetooth Source Found!")
 
 if __name__ == "__main__":
     try:
