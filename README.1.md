@@ -75,10 +75,10 @@ Starting by getting PIP or Pillow, not sure what does what right now!<br>
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
 RleHQiOiJlbnRlciBpbWFnZSBkZXNjcmlwdGlvbiBoZXJlIiwi
-c3RhcnQiOjUxMCwiZW5kIjo1MTB9fSwiY29tbWVudHMiOnsiYT
+c3RhcnQiOjQ5OSwiZW5kIjo0OTl9fSwiY29tbWVudHMiOnsiYT
 daMkpnOFJkWTdVSTdpRiI6eyJkaXNjdXNzaW9uSWQiOiIwZzVa
 VHp5ck9WT204c0ZVIiwic3ViIjoiZ2g6NTc3ODQwNCIsInRleH
 QiOiJEYXNoIFZpZXcgb24gYSBDb2xkIERheSBXaXRoIGEgRGlu
 byIsImNyZWF0ZWQiOjE1OTIzMzIwNDYyNTF9fSwiaGlzdG9yeS
-I6Wy0xNzgzNjg0NDUxLC0xMjQxNTAwNjY4XX0=
+I6WzYyMDczMTY3NywtMTI0MTUwMDY2OF19
 -->
