@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 #file created to share global variables troughout modules!
 
-music_info = "     "
-next_music_info =  "     "
-volume = 100
-status = "play"
 
+#volume variables
+volume = 80
+#todo: source selection
+source = 0
+#bluetooth variables configuration
+status = "pause"
+#music info, for now, only from bluetooth
+music_info = ""
+next_music_info =  ""
+#status messages in errors cases
+message = ""
