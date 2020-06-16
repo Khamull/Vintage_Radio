@@ -1,12 +1,7 @@
----
-
-
----
-
 <h1 id="welcome-to-my-vintage-radio-project-with-raspberry-pi">Welcome To My Vintage Radio Project With Raspberry Pi</h1>
 <p>Hi! I’m building a custom head unit(not sure if I can call it that) for my vintage VW BUS, is a 1965 beauty(at least me and my wife think so).<br>
 Here is a picture of part of it’s interior, as you can see, the space for the radio is very period specific, and, there are not much radios that can fit in there and does not need some type of adaptation, or cutting trough the metal.<br>
-<img src="https://scontent.fcgh11-1.fna.fbcdn.net/v/t1.0-9/43462799_309476856304772_5431551599711354880_o.jpg?_nc_cat=101&amp;_nc_oc=AQmifq89rNEnwnpwOIC42puo4Ow970gbRcCEg4C2xV-H1epM3RZIuB6Ywca6f8DWKjI&amp;_nc_ht=scontent.fcgh11-1.fna&amp;oh=068ccf13b89e9b637ea71835ffe35e19&amp;oe=5ED81DF3" alt="enter image description here"></p>
+
 <p>Looking at old vintage radios that are period accurate gave me an Ideia!<br>
 <strong>"Why Not Use A RASPBERRY PI With Rotatry Encoder to replace the Radio?"</strong></p>
 <p>And so, here we are.<br>
@@ -14,14 +9,15 @@ I’ve decided to use two rotary encoders to control the PI and a OLED Display t
 <p>I’m relatively new to Raspberry Pi and to Python, but, since I’m a programmer, what could go wrong, right?</p>
 <p><strong>The Project so Far</strong><br>
 I’ve managed to get the bearings of where I want to go, and decided I needed a model of my car’s panel, and, the Ideia looks like this:<br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011818.jpg?raw=true" alt="enter image description here"><br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200122_011825.jpg?raw=true" alt="enter image description here"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200122_011818.jpg?raw=true" alt="enter image description here"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200122_011825.jpg?raw=true" alt="enter image description here"><br>
+
 Still missing the OLED Display, I’m waiting for it to arrive.<br>
 <strong>Update, just got the OLED Display, now another fun part begins!</strong><br>
 Below Some Photos!<br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161011.jpg?raw=true" alt="Front OLED Display"><br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161328.jpg?raw=true" alt="Back Oled Display"><br>
-<img src="https://github.com/Khamull/Vintage_Radio/blob/master/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200303_161011.jpg?raw=true" alt="Front OLED Display"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200303_161328.jpg?raw=true" alt="Back Oled Display"><br>
+<img src="https://github.com/Khamull/Vintage_Radio/blob/master/mediafiles/20200303_161414.jpg?raw=true" alt="An Ideia of how it will look"><br>
 Link to the one I bough, not the ideal one I was hopping, but will do :)<br>
 <a href="https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO">https://pt.aliexpress.com/item/33024448944.html?spm=a2g0s.9042311.0.0.6b23b90aLRr6FO</a><br>
 Had to tweak a little to get the disply working, and, since a few weeks have passed, here is a short video with the working test from LUMA Core, it worked like a charm once I figured out I had old connectors with issues in my jumpers:</p>
@@ -76,3 +72,13 @@ They will be listed here, and probably separeted by function that I used them.</
 Starting by getting PIP or Pillow, not sure what does what right now!<br>
 <a href="https://pillow.readthedocs.io/en/latest/installation.html">https://pillow.readthedocs.io/en/latest/installation.html</a></p>
 
+<!--stackedit_data:
+eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
+RleHQiOiJlbnRlciBpbWFnZSBkZXNjcmlwdGlvbiBoZXJlIiwi
+c3RhcnQiOjQ5OSwiZW5kIjo0OTl9fSwiY29tbWVudHMiOnsiYT
+daMkpnOFJkWTdVSTdpRiI6eyJkaXNjdXNzaW9uSWQiOiIwZzVa
+VHp5ck9WT204c0ZVIiwic3ViIjoiZ2g6NTc3ODQwNCIsInRleH
+QiOiJEYXNoIFZpZXcgb24gYSBDb2xkIERheSBXaXRoIGEgRGlu
+byIsImNyZWF0ZWQiOjE1OTIzMzIwNDYyNTF9fSwiaGlzdG9yeS
+I6WzYyMDczMTY3N119
+-->
