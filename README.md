@@ -1,8 +1,3 @@
----
-
-
----
-
 <h1 id="welcome-to-my-vintage-radio-project-with-raspberry-pi">Welcome To My Vintage Radio Project With Raspberry Pi</h1>
 <p>Hi! I’m building a custom head unit(not sure if I can call it that) for my vintage VW BUS, is a 1965 beauty(at least me and my wife think so).<br>
 Here is a picture of part of it’s interior, as you can see, the space for the radio is very period specific, and, there are not much radios that can fit in there and does not need some type of adaptation, or cutting trough the metal.<br>
