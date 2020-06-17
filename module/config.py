@@ -13,3 +13,5 @@ music_info = ""
 next_music_info =  ""
 #status messages in errors cases
 message = ""
+#interval of the menu
+interval = 0

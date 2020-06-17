@@ -8,9 +8,7 @@
 
 from __future__ import unicode_literals
 from luma.core.interface.serial import spi
-from luma.core.render import canvas
 from luma.oled.device import ssd1309
-from luma.core.render import canvas
 from PIL import ImageFont
 import os
 
@@ -25,7 +23,7 @@ def get_device():
 def make_font(name, size):
     font_path = os.path.abspath(os.path.join(
         os.path.dirname(__file__), 'fonts', name))
-    print(font_path)
+    #print(font_path)
     return ImageFont.truetype(font_path, size)
 
 def draw_rectangle(draw, device):
