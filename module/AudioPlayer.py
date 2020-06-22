@@ -11,16 +11,33 @@
 #   songs might be a good addon, also shuffle and repeat
 
 
-from pygame import mixer #pygame mixer is garbage!
+import vlc
+import time
+import FilesControll as fc
+#song = "/home/pi/Music/114-big_brother_and_the_holding_company_feat._janis_joplin-bye_bye_baby_(alternate_take)_(bonus_track).flac"
+#song = "/home/pi/Music/What_a-feeling.mp3"
+songList = fc.getListOfFiles("") #"/home/pi/Music/What_a-feeling.mp3"
+player = vlc.MediaPlayer(songList)
 
-#initialize mixer
-mixer.init()
+def elapsed_time(current, total, song):
+    duration = total / 1000
+    mm, ss   = divmod(duration, 60)
+    elapsed = (current) / 1000
+    mm2, ss2   = divmod(elapsed, 60)
+    print ("Song : ", song, "%02d:%02d" % (mm,ss),"/", "%02d:%02d" % (mm2,ss2))
 
-#sound = mixer.Sound("/home/pi/Music/114-big_brother_and_the_holding_company_feat._janis_joplin-bye_bye_baby_(alternate_take)_(bonus_track).flac")
-sound = mixer.Sound("/home/pi/Music/What_a_feeling.mp3")
+# play songs list or single music, repeat 0 = none, 1 = single, 2 = all
+# random bool false = false, true = true
+def play_SongList(songList, repeat, random):
+    
 
-try:
-    while True:
-        sound.play()
-finally:
-    sound.stop()
+#player = vlc.MediaPlayer("/home/pi/Music/What_a_feeling.mp3")
+player.play()
+time.sleep(1)
+if(player.is_playing()):
+    print("Total time {:}".format(player.get_length()))
+while(player.is_playing()):
+    elapsed_time(player.get_time(),player.get_length(), songList)
+    time.sleep(1)
+    #print("Remaining {:} | Total {:}".format(player.get_length() - player.get_time(),player.get_length()))
+    

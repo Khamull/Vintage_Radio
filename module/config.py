@@ -15,3 +15,6 @@ next_music_info =  ""
 message = ""
 #interval of the menu
 interval = 0
+
+#initial musics folder
+initFolder = "/home/pi/Music/"
