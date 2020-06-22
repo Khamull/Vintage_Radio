@@ -18,3 +18,5 @@ interval = 0
 
 #initial musics folder
 initFolder = "/home/pi/Music/"
+
+USBFolder = ""
