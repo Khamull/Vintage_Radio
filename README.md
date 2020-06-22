@@ -72,6 +72,13 @@ They will be listed here, and probably separeted by function that I used them.</
 <a href="https://luma-oled.readthedocs.io/en/latest/python-usage.html">https://luma-oled.readthedocs.io/en/latest/python-usage.html</a><br>
 Starting by getting PIP or Pillow, not sure what does what right now!<br>
 <a href="https://pillow.readthedocs.io/en/latest/installation.html">https://pillow.readthedocs.io/en/latest/installation.html</a></p>
+Started Using VLC Python, was a bit dificult to understand it's documentantion, but here it is the links I used:
+https://www.olivieraubert.net/vlc/python-ctypes/doc/vlc.Meta-class.html
+Specially, the ones that gives us the basic usage of the methods, that are, IMO poorly organized, but man, do they have functions to media and network capabilities! 
+
+https://github.com/OSUrobotics/vlc/blob/master/src/vlc/libvlc.py
+https://www.programcreek.com/python/example/93375/vlc.Instance
+
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
