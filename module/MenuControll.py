@@ -3,6 +3,73 @@ from RPi import GPIO
 import config as cf
 from subprocess import DEVNULL, STDOUT, check_call
 
+class CONTROLL:
+    def __init__(self):
+        self.Mode = cf.source
+        self.clk    = cf.l_clk
+        self.dt     = cf.l_dt
+        self.btn    = cf.l_btn
+        
+        self.GPIO_setup(self)
+
+        clkLastState = GPIO.input(self.clk)
+        btnLastState = GPIO.input(self.btn)
+        preInterval = interval = cf.interval
+        isReseted = False
+        
+        #adding event listener for click
+        GPIO.add_event_detect(self.btn,GPIO.RISING,callback=button_callback, bouncetime=300)
+        #listening for a input to be able to mesure both!
+        GPIO.add_event_detect(self.clk,GPIO.FALLING,callback=option_callback,bouncetime=4) 
+        
+    def interval_calc(self, channel):
+        #global preInterval, interval, isReseted, clkLastState, interval
+        clkState = GPIO.input(self.clk)
+        dtState = GPIO.input(self.dt)
+        if clkState != clkLastState:
+            if self.isReseted:
+                self.isReseted = False
+                self.interval = 0
+            if dtState != clkState:
+                self.interval += step
+                if self.interval > max:
+                    self.interval = max
+                cf.interval = self.interval
+                print(self.interval)
+            else:
+                self.interval -= step
+                if self.interval < min:
+                    self.interval = min
+                cf.interval = self.interval
+                print(self.interval)
+        self.interval = self.interval
+        self.clkLastState = clkState
+    
+    def button_callback(self, channel):
+        if cf.source == 0:
+           #gets the current selected menu option
+           self.menu_control(self)
+        if cf.source == 1:
+           #controls volume mute/unmute
+           print("Mute or Unmute")
+        
+    def menu_control(self):
+        if(self.interval >= 0 and self.interval <=25):
+            print("Selected option 1")
+        if(self.interval >= 26 and self.interval <=50):
+            print("Selected option 2")
+        if(self.interval >= 51 and self.interval <=75):
+            print("Selected option 3")
+        if(self.interval >= 76 and self.interval <=100):
+            print("Selected option 4")
+        self.btnLastState = self.btnPushed
+    
+    def GPIO_setup(self):
+        #GPIO SETUP
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 clk = 22

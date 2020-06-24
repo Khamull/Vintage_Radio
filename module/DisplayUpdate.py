@@ -55,8 +55,9 @@ def draw_rectangle(draw, device):
 
 def main():
     LC.main()
-    if cf.source == 0:
-        RC.main()
+    RC.main()
+#    if cf.source == 0:
+#        RC.main()
     #defining the device we are using
     device = get_device()
     
@@ -74,7 +75,7 @@ def main():
     #defining font types to use in different parts of the screen
     font = make_font("pixelmix.ttf", 10)
     font_awesome = make_font("Font Awesome 5 Free-Solid-900.otf", device.height-40)
-    
+
     while True:
         update_volume()
         update_status()
@@ -119,13 +120,14 @@ def main():
                 #print(i)
                 sleep(0.05)
             elif cf.source == 0:
-                device.clear()
+                #device.clear()
                 #basic outline Box and text rendered in portrait mode
                 draw_rectangle(draw, device)
                 
                 #music name, artist and album(may be next music inline)
-                draw.text((5, 40), cf.message, font=font, fill="white")
-                sleep(0.05)
+                draw.text((5+i, 40), cf.message, font=font, fill="white")
+                sleep(1)
+                i+1
                 RC.main()
         
 if __name__ == "__main__":

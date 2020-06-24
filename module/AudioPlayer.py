@@ -61,14 +61,9 @@ def main():
     player = loadPlayer()
     play(player)
     time.sleep(10)
-    pause(player)
-    time.sleep(10)
-    play(player)
-    time.sleep(10)
-    next(player)
-    time.sleep(10)
-    previous(player)
-    time.sleep(10)
+    for i in range(400):
+        next(player)
+
     
 if __name__ == '__main__':
     main()  
