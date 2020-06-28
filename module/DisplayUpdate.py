@@ -37,7 +37,7 @@ def make_font(name, size):
 #function that sets de volume level and status of the playback
 def update_volume():
     global volume
-    volume = cf.volume
+    volume = cf.interval
 
 def update_status():
     global status
@@ -48,9 +48,6 @@ def update_music_info():
     global next_music_info
     music_info = cf.music_info
     next_music_info = cf.next_music_info
-    
-def draw_rectangle(draw, device):
-    D.draw_rectangle(draw, device)
     
 
 def main():

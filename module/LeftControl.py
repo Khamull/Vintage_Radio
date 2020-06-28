@@ -46,6 +46,10 @@ def volume_callback(channel):
         check_call(command, stdout=DEVNULL, stderr=STDOUT)
     clkLastState = clkState
 
+def set_volume(volume):
+    command = ["amixer", "cset", "numid=3", "{}%".format(volume)]
+    check_call(command, stdout=DEVNULL, stderr=STDOUT)
+
 def button_callback(channel):
     global btnLastState
     global preVolume
