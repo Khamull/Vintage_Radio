@@ -13,7 +13,7 @@
 
 import vlc
 import FilesControll as fc
-import time
+import config as cf
 
 def loadPlayer():
     songList = fc.getListOfFiles("")
@@ -29,41 +29,54 @@ def elapsed_time(current, total, title):
     mm, ss   = divmod(duration, 60)
     elapsed = (current) / 1000
     mm2, ss2   = divmod(elapsed, 60)
-    print (title, "- %02d:%02d" % (mm,ss),"/", "%02d:%02d" % (mm2,ss2))
+    print ("%02d:%02d" % (mm,ss),"/", "%02d:%02d" % (mm2,ss2))
 
 def play(player):
     player.play()
+    cf.status = "play"
 def next(player):
     player.next()
+    
 def pause(player):
+    cf.status = "pause"
     player.pause()
+    
 def previous(player):
     player.previous()
+    
 def stop(player):
+    cf.status = "stop"
     player.stop()
+    
 def player_status(player):
     return player.is_playing()
 
 def music_info(player):
+    list = [
+            player.get_media_player().get_media().get_meta(0)   #music name
+            ,player.get_media_player().get_media().get_meta(1)  #Artist
+            ]
+    return list
+    # https://www.olivieraubert.net/vlc/python-ctypes/doc/vlc.Meta-class.html
     #title = 0
     #artisit = 1
     #Genre = 2
     #Album = 3
     #TrackNumber = ""
     #TrackId = ""
-    #    print(player.get_media_player().get_time())# will return path of current playing mp3 or mp4(sample from where I got the idea)    
-    #gets different meta for display!
-    player.get_media_player().get_media().get_meta(0)
+    #   print(player.get_media_player().get_time())# will return path of current playing mp3 or mp4(sample from where I got the idea)    
+    #   player.get_media_player().get_media().get_meta(0)
+    #   gets different meta for display!
     
 def music_track_time(player): 
     return elapsed_time(player.get_media_player().get_time(),player.get_media_player().get_length(), player.get_media_player().audio_get_track())
+
 def main():
     player = loadPlayer()
     play(player)
-    time.sleep(10)
-    for i in range(400):
-        next(player)
-
+    while player_status(player):
+        music_track_time(player)
+        music_info(player)
     
 if __name__ == '__main__':
     main()  

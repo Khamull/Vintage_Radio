@@ -6,6 +6,7 @@
 
 #todo: source selection
 source = 0
+defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
 
 if source == 0:
     #volume variables
@@ -26,6 +27,11 @@ l_clk    = 22
 l_dt     = 27
 l_btn    = 17
 
+#right rotary config
+r_clk    = 26
+r_dt     = 6
+r_btn    = 13
+
 
 #status variable :todo, get the latest and save the current!
 status = "pause"
@@ -38,5 +44,11 @@ message = ""
 
 
 #initial musics folder
-initFolder = "/home/pi/Music/"
-USBFolder = ""
+initFolder  = "/home/pi/Music/"
+USBFolder   = ""
+#local player variables
+musicName   = ""
+artist      = ""
+album       = ""
+totalTime   = 0
+currentTime = 0

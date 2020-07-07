@@ -9,10 +9,9 @@ from __future__ import unicode_literals
 from luma.core.render import canvas
 import datetime
 import Device as D
-import MenuControll as MC
 import config as CF
+import Controll as ctrl
 from time import sleep
-import AudioPlayer as ap
 
 #start the screen
 # menu options if none is preseted are 1 - MP3(Internal) 2 - Bluetooth 3 - USB 4 - Settings
@@ -100,6 +99,7 @@ def draw_menu():
             else:
                 draw.text((4, 50), "4 - Settings", font=font_menu,fill="white")
 
+
 def draw_player():
         device = D.get_device()
         makeFonts(device)
@@ -136,15 +136,19 @@ def draw_player():
                     draw.text((100, 38), text=codes[5], font=font_awesome, fill="white")
                 if CF.status == "pause":
                     draw.text((100, 38), text=codes[4], font=font_awesome, fill="white", contrast=10)
-        
-                #print(i)
-                sleep(0.05)
-    
 
 def main():
-    MC.main()
-    draw_menu()    
-    draw_player()    
+    ctrl.main()
+    while True:
+        if CF.source == 0:
+            draw_player()
+        if CF.source == 1:
+            draw_menu()
+    
+    
+    
+
+        
 
 if __name__ == "__main__":
     try:

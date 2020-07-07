@@ -2,13 +2,19 @@
 from RPi import GPIO
 import config as cf
 from subprocess import DEVNULL, STDOUT, check_call
+import AudioPlayer as ap
+
 
 class CONTROLL:
     def __init__(self):
         self.Mode   = cf.source
-        self.clk    = cf.l_clk
-        self.dt     = cf.l_dt
-        self.btn    = cf.l_btn
+        self.l_clk    = cf.l_clk
+        self.l_dt     = cf.l_dt
+        self.l_btn    = cf.l_btn
+        self.r_clk    = cf.r_clk
+        self.r_dt     = cf.r_dt
+        self.r_btn    = cf.r_btn
+        self.isPaused = False
         self.step   = cf.step
         self.preInterval = self.interval = cf.interval
         self.min = cf.min
@@ -16,28 +22,49 @@ class CONTROLL:
         self.isReseted = False
         self.GPIO_setup()
         self.states_setup()
+        #temporary to teste right control
+        self.get_palyer()
+        if cf.source == 0 or cf.source == 2:
+            self.set_volume()
     
     def GPIO_setup(self):
         #GPIO SETUP
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #left controll
+        GPIO.setup(self.l_clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.l_dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.l_btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        
+        #right controll
+        GPIO.setup(self.r_clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.r_dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.r_btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def states_setup(self):
-        self.clkLastState = GPIO.input(self.clk)
-        self.btnLastState = GPIO.input(self.btn)
+        self.l_clkLastState = GPIO.input(self.l_clk)
+        self.l_btnLastState = GPIO.input(self.l_btn)
+        
+        self.r_clkLastState = GPIO.input(self.r_clk)
+        self.r_btnLastState = GPIO.input(self.r_btn)
+        
  
     def add_event_callbakcs(self):
-        print("GPIO event add called")
-        GPIO.add_event_detect(self.btn,GPIO.RISING,callback=self.button_callback, bouncetime=300)
-        GPIO.add_event_detect(self.clk,GPIO.FALLING,callback=self.interval_calc,bouncetime=4) 
         
-    
+        print("GPIO event add called")
+        #left control
+        GPIO.add_event_detect(self.l_btn,GPIO.RISING,callback=self.button_callback, bouncetime=300)
+        GPIO.add_event_detect(self.l_clk,GPIO.FALLING,callback=self.interval_calc,bouncetime=4) 
+        
+        #right controll        
+        GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback)
+        GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback)
+        GPIO.add_event_detect(self.r_btn,GPIO.FALLING,callback=self.pause_button_callback,bouncetime=300)
+        
+    #interval for left control
     def interval_calc(self, channel):
-        clkState = GPIO.input(self.clk)
-        dtState = GPIO.input(self.dt)
-        if clkState != self.clkLastState:
+        clkState = GPIO.input(self.l_clk)
+        dtState = GPIO.input(self.l_dt)
+        if clkState != self.l_clkLastState:
             if self.isReseted:
                 self.isReseted = False
                 self.interval = 0
@@ -53,20 +80,20 @@ class CONTROLL:
                     self.interval = self.min
                 cf.interval = self.interval
                 print(self.interval)
-        self.clkLastState = clkState
+        self.l_clkLastState = clkState
         #At the end check the current source and do the needed
         if cf.source == 0:
             self.set_volume()
         
-    
+    #volume controlled by left controll
     def set_volume(self):
         command = ["amixer", "cset", "numid=3", "{}%".format(cf.interval)]
         check_call(command, stdout=DEVNULL, stderr=STDOUT)
-    
+    #volume by left controll
     def get_volume(self):
         command = ["amixer", "sget", "Master", "| awk -F'[][]' '{print $2}'"]
         self.interval = check_call(command, stdout=DEVNULL, stderr=STDOUT)
-    
+    #left controll
     def volume_state(self):
         volume = self.interval
         if self.isReseted:
@@ -82,10 +109,9 @@ class CONTROLL:
             cf.interval = volume
             self.interval = volume
             print("Muted")
-        self.set_volume()
+        self.set_volume() 
     
-    
-        
+    #left button callback   
     def button_callback(self, channel):
         print("Button Call Back")
         if cf.source == 0:
@@ -100,13 +126,15 @@ class CONTROLL:
         if cf.source == 3:
             #gets the current selected menu option
            self.menu_control()
-        
+    #left menu controll   
     def menu_control(self):
         if(self.interval >= 0 and self.interval <=25): 
             cf.source = 0
+            cf.defaultStart = 1
             print("Selected option 1")
         if(self.interval >= 26 and self.interval <=50):
             cf.source = 1
+            cf.defaultStart = 2
             print("Selected option 2")
         if(self.interval >= 51 and self.interval <=75):
             cf.source = 2
@@ -114,6 +142,44 @@ class CONTROLL:
         if(self.interval >= 76 and self.interval <=100):
             cf.source = 3
             print("Selected option 4")
+    #right button callback(probably to be better implemented)
+    def pause_button_callback(self, channel):
+        btnPushed = GPIO.input(self.r_btn)
+           
+        if self.isPaused:
+            self.isPaused = False
+            print("Play")
+            cf.status = "play"
+            ap.play(self.Player)
+        else:
+            self.isPaused = True
+            print("Pause")
+            cf.status = "pause"
+            ap.pause(self.Player)
+        self.r_btnLastState = btnPushed
+    
+    def next_callback(self, channel):
+        clkState = GPIO.input(self.r_clk)
+        dtState = GPIO.input(self.r_dt)
+        if clkState != self.r_clkLastState:
+            if dtState != clkState:
+                ap.next(self.Player)
+                print("Next")
+        self.r_clkLastState = clkState
+
+
+    def prev_callback(self, channel):
+        clkState = GPIO.input(self.r_clk)
+        dtState = GPIO.input(self.r_dt)
+        if clkState != self.r_clkLastState:
+            if dtState != clkState:
+                ap.previous(self.Player)
+                print("Previous")
+        self.r_clkLastState = clkState
+    
+    def get_palyer(self):
+        self.Player = ap.loadPlayer()
+    
 
 def main():
     #print(interval)
