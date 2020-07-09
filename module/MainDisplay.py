@@ -53,10 +53,17 @@ def Time():
     today_time = now.strftime("%H:%M:%S")
 
 def makeFonts(device):
-    global font_basic, font_awesome, font_menu
+    global font_basic, font_awesome, font_menu, font_basic_8
     font_basic = make_font("pixelmix.ttf", 10)
-    font_awesome = make_font("Font Awesome 5 Free-Solid-900.otf", device.height-40)
+    font_basic_8 = make_font("pixelmix.ttf", 8)
+    font_awesome = make_font("Font Awesome 5 Free-Solid-900.otf", device.height-48)
     font_menu = make_font("Font Awesome 5 Free-Solid-900.otf", 13)
+
+def updateMusic(c):
+    c.get_music_info()
+
+def updateTime(c):
+    c.get_music_time()
         
 def draw_menu():
     device = D.get_device()
@@ -67,13 +74,15 @@ def draw_menu():
             #basic outline Box and text rendered in portrait mode
             #draw.rectangle(device.bounding_box, outline="white", fill="black")
             D.draw_rectangle(draw, device)
+            
             #date and time
             draw.line((0, 13, 128, 13), fill="white")
             draw.text((2, 1), today_date, fill="white")
             draw.text((78, 1), today_time, fill="white")
-            
+            #updateMusic()
             #ler controle de volume! Depois, ler primeito configuração inicial!
             p = menu_position(CF.interval)
+            #musicInfo()
             #MP3
             if(p[0] == 1):
                 draw.rectangle((4, 14, 122, 24) , outline="white", fill="white")
@@ -100,7 +109,7 @@ def draw_menu():
                 draw.text((4, 50), "4 - Settings", font=font_menu,fill="white")
 
 
-def draw_player():
+def draw_player(c):
         device = D.get_device()
         makeFonts(device)
         while CF.source == 0:
@@ -114,38 +123,49 @@ def draw_player():
                 draw.line((0, 13, 128, 13), fill="white")
                 draw.text((2, 1), today_date, fill="white")
                 draw.text((78, 1), today_time, fill="white")
-                
+                #info = ctrl.get_music_info()
                 #music name, artist and album(may be next music inline)
-                #draw.text((music_title_start - i, 13), music_info, font=font,fill="white")
-                #draw.text((music_title_start - i, 23), next_music_info, font=font, fill="white")
+                updateMusic(c)
+                updateTime(c)
+                try:
+                    draw.text(((device.width/4.3)- len(CF.music_info[0]), 14), CF.music_info[0]  , font=font_basic_8,fill="white")
+                    draw.text(((device.width/3)- len(CF.music_info[1]), 22), CF.music_info[1]  , font=font_basic_8,fill="white")
+                    draw.text(((device.width/3)- len(CF.time), 32), CF.time  , font=font_basic_8,fill="white")
+                except:
+                    pass
+                
                 #text position for music info(can be better) TODO: a Better Scroll 
-
+                #c.get_music_info()
+                #print(CF.music_info)
+                
                 volumetodisplay = str(CF.interval)+"%"
                 volume = CF.interval
                 #volume controls status info
-                draw.text((37, 45), volumetodisplay, font=font_basic, fill="white")
+                draw.text((25, 50), volumetodisplay, font=font_basic, fill="white")
                 if volume > 0 and volume <= 40:
-                    draw.text((5, 40), text=codes[2], font=font_awesome, fill="white")
+                    draw.text((5, 45), text=codes[2], font=font_awesome, fill="white")
                 if volume > 40 and volume <=60:    
-                    draw.text((5, 40), text=codes[0], font=font_awesome, fill="white")
+                    draw.text((5, 45), text=codes[0], font=font_awesome, fill="white")
                 if volume > 60:           
-                    draw.text((5, 40), text=codes[3], font=font_awesome, fill="white")
+                    draw.text((5, 45), text=codes[3], font=font_awesome, fill="white")
                 if volume <= 0:
-                    draw.text((5, 40), text=codes[1], font=font_awesome, fill="white")
+                    draw.text((5, 45), text=codes[1], font=font_awesome, fill="white")
                 if CF.status == "play":
-                    draw.text((100, 38), text=codes[5], font=font_awesome, fill="white")
+                    draw.text((110, 45), text=codes[5], font=font_awesome, fill="white")
                 if CF.status == "pause":
-                    draw.text((100, 38), text=codes[4], font=font_awesome, fill="white", contrast=10)
+                    draw.text((110, 45), text=codes[4], font=font_awesome, fill="white", contrast=10)
                 if CF.second_status == "next":
-                    draw.text((65, 38), text=codes[7], font=font_awesome, fill="white", contrast=10)
+                    draw.text((70, 45), text=codes[7], font=font_awesome, fill="white", contrast=10)
                 if CF.second_status == "prev":
-                    draw.text((65, 38), text=codes[6], font=font_awesome, fill="white", contrast=10)
+                    draw.text((70, 45), text=codes[6], font=font_awesome, fill="white", contrast=10)
 
 def main():
-    ctrl.main()
+    c = ctrl.CONTROLL()
+    c.add_event_callbakcs()
+
     while True:
         if CF.source == 0:
-            draw_player()
+            draw_player(c)
         if CF.source == 1:
             draw_menu()
     

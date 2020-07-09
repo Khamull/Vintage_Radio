@@ -38,7 +38,7 @@ status = "pause"
 second_status = ""
 
 #music info, for now, only from bluetooth
-music_info = ""
+music_info = []
 next_music_info =  ""
 #status messages in errors cases
 message = ""
@@ -51,5 +51,4 @@ USBFolder   = ""
 musicName   = ""
 artist      = ""
 album       = ""
-totalTime   = 0
-currentTime = 0
+time        = ""

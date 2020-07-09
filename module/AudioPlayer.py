@@ -25,11 +25,17 @@ def loadPlayer():
     return player
 
 def elapsed_time(current, total, title):
-    duration = total / 1000
-    mm, ss   = divmod(duration, 60)
-    elapsed = (current) / 1000
-    mm2, ss2   = divmod(elapsed, 60)
-    print ("%02d:%02d" % (mm,ss),"/", "%02d:%02d" % (mm2,ss2))
+    try:
+        duration = total / 1000
+        mm, ss   = divmod(duration, 60)
+        elapsed = (current) / 1000
+        mm2, ss2   = divmod(elapsed, 60)
+        time = "%02d:%02d" % (mm,ss),"/", "%02d:%02d" % (mm2,ss2)
+        result = time[2]+time[1]+time[0]
+        return result
+    except:
+        pass
+    
 
 def play(player):
     player.play()
@@ -54,11 +60,14 @@ def player_status(player):
     return player.is_playing()
 
 def music_info(player):
-    list = [
-            player.get_media_player().get_media().get_meta(0)   #music name
-            ,player.get_media_player().get_media().get_meta(1)  #Artist
-            ]
-    return list
+    try:
+        list = [
+                player.get_media_player().get_media().get_meta(0)   #music name
+                ,player.get_media_player().get_media().get_meta(1)  #Artist
+                ]
+        return list
+    except:
+        pass
     # https://www.olivieraubert.net/vlc/python-ctypes/doc/vlc.Meta-class.html
     #title = 0
     #artisit = 1

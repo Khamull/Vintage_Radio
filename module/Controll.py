@@ -27,7 +27,7 @@ class CONTROLL:
         self.get_palyer()
         if cf.source == 0 or cf.source == 2:
             self.get_palyer()
-            ap.play(self.Player)
+            ap.play(self.vlc_player)
             self.set_volume()
     
     def GPIO_setup(self):
@@ -79,14 +79,14 @@ class CONTROLL:
                     self.interval = self.max
                 cf.interval = self.interval
                 self.set_volume()
-                print(cf.interval)
+                #print(cf.interval)
             else:
                 self.interval -= self.step
                 if self.interval < self.min:
                     self.interval = self.min
                 cf.interval = self.interval
                 self.set_volume()
-                print(cf.interval)
+                #print(cf.interval)
         self.l_clkLastState = clkState
         #At the end check the current source and do the needed
         
@@ -101,7 +101,7 @@ class CONTROLL:
     def get_volume(self):
         command = ["amixer", "sget", "Master", "| awk -F'[][]' '{print $2}'"]
         self.interval = check_call(command, stdout=DEVNULL, stderr=STDOUT)
-        print(self.interval)
+        #print(self.interval)
     #left controll
     def volume_state(self):
         volume = self.interval
@@ -110,14 +110,14 @@ class CONTROLL:
             self.interval   = cf.lastVolume
             cf.interval     = cf.lastVolume
             self.isReseted = False
-            print("Unmuted")
+            #rint("Unmuted")
         else:
             cf.lastVolume = volume
             volume = 0
             self.isReseted = True
             cf.interval = volume
             self.interval = volume
-            print("Muted")
+            #print("Muted")
         self.set_volume() 
     
     #left button callback   
@@ -139,8 +139,8 @@ class CONTROLL:
     def menu_control(self):
         if(self.interval >= 0 and self.interval <=25): 
             cf.source = 0
-            ap.play(self.Player)
-            cf.interval = 80
+            ap.play(self.vlc_player)
+            cf.interval = 50
             self.set_volume()
             #cf.defaultStart = 1
             print("Selected option 1")
@@ -156,27 +156,26 @@ class CONTROLL:
             print("Selected option 4")
     #right button callback(probably to be better implemented)
     def pause_button_callback(self, channel):
-        btnPushed = GPIO.input(self.r_btn)
-           
+        #btnPushed = GPIO.input(self.r_btn)
         if self.isPaused:
             self.isPaused = False
             print("Play")
             cf.status = "play"
-            ap.play(self.Player)
+            ap.play(self.vlc_player)
         else:
             self.isPaused = True
             print("Pause")
             cf.status = "pause"
-            ap.pause(self.Player)
-        self.r_btnLastState = btnPushed
+            ap.pause(self.vlc_player)
+        #self.r_btnLastState = btnPushed
     
     def next_callback(self, channel):
         clkState = GPIO.input(self.r_clk)
         dtState = GPIO.input(self.r_dt)
         if clkState != self.r_clkLastState:
             if dtState != clkState:
-                ap.next(self.Player)
-                print("Next")
+                ap.next(self.vlc_player)
+                #print("Next")
         self.r_clkLastState = clkState
         self.player_status()
 
@@ -185,29 +184,34 @@ class CONTROLL:
         dtState = GPIO.input(self.r_dt)
         if clkState != self.r_clkLastState:
             if dtState != clkState:
-                ap.previous(self.Player)
-                print("Previous")
+                ap.previous(self.vlc_player)
+                #print("Previous")
         self.r_clkLastState = clkState
         self.player_status()
         
     def player_status (self):
-        #sleep(0.09)
-        if ap.player_status(self.Player):
+        
+        if ap.player_status(self.vlc_player):
             cf.status = "play"
         else:
             cf.status = "pause"
+        sleep(0.1)
         cf.second_status = ""
-        
+    
+    
+    def get_music_info(self):
+        cf.music_info = ap.music_info(self.vlc_player)
+    
+    def get_music_time(self):
+        cf.time = ap.music_track_time(self.vlc_player)
             
     def get_palyer(self):
-        self.Player = ap.loadPlayer()
+        self.vlc_player = ap.loadPlayer()
+        
     
 
 def main():
-    #print(interval)
-    c = CONTROLL()
-    c.add_event_callbakcs()
-
+    pass
 
 if __name__ == '__main__':
     print("main init")
