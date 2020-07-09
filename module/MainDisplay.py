@@ -20,9 +20,9 @@ from time import sleep
 # time settings as well(but this is just some basic ideas)
 # and display the IP also!
 # How to get to menu? Long press of volume button/
-# navigate using Rotary+Press on oprion!
+# navigate using Rotary+Press on option!
 
-codes = ["\uf027", "\uf6a9", "\uf026", "\uf028", "\uf28b", "\uf144"]
+codes = ["\uf027", "\uf6a9", "\uf026", "\uf028", "\uf28b", "\uf144", "\uf049", "\uf050" ]
 
 def make_font(name, size):
     return D.make_font(name, size)
@@ -61,7 +61,7 @@ def makeFonts(device):
 def draw_menu():
     device = D.get_device()
     makeFonts(device)
-    while True:    
+    while CF.source == 1:    
         Time()
         with canvas(device) as draw:
             #basic outline Box and text rendered in portrait mode
@@ -103,7 +103,7 @@ def draw_menu():
 def draw_player():
         device = D.get_device()
         makeFonts(device)
-        while True:
+        while CF.source == 0:
 
             with canvas(device) as draw:
                 #basic outline Box and text rendered in portrait mode
@@ -136,6 +136,10 @@ def draw_player():
                     draw.text((100, 38), text=codes[5], font=font_awesome, fill="white")
                 if CF.status == "pause":
                     draw.text((100, 38), text=codes[4], font=font_awesome, fill="white", contrast=10)
+                if CF.second_status == "next":
+                    draw.text((65, 38), text=codes[7], font=font_awesome, fill="white", contrast=10)
+                if CF.second_status == "prev":
+                    draw.text((65, 38), text=codes[6], font=font_awesome, fill="white", contrast=10)
 
 def main():
     ctrl.main()

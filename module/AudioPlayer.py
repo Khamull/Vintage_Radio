@@ -35,6 +35,7 @@ def play(player):
     player.play()
     cf.status = "play"
 def next(player):
+    cf.second_status = "next"
     player.next()
     
 def pause(player):
@@ -42,6 +43,7 @@ def pause(player):
     player.pause()
     
 def previous(player):
+    cf.second_status = "prev"
     player.previous()
     
 def stop(player):

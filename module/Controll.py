@@ -3,6 +3,7 @@ from RPi import GPIO
 import config as cf
 from subprocess import DEVNULL, STDOUT, check_call
 import AudioPlayer as ap
+from time import sleep
 
 
 class CONTROLL:
@@ -25,6 +26,8 @@ class CONTROLL:
         #temporary to teste right control
         self.get_palyer()
         if cf.source == 0 or cf.source == 2:
+            self.get_palyer()
+            ap.play(self.Player)
             self.set_volume()
     
     def GPIO_setup(self):
@@ -57,7 +60,7 @@ class CONTROLL:
         
         #right controll        
         GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback)
-        GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback)
+        GPIO.add_event_detect(self.r_dt,GPIO.RISING,callback=self.prev_callback)
         GPIO.add_event_detect(self.r_btn,GPIO.FALLING,callback=self.pause_button_callback,bouncetime=300)
         
     #interval for left control
@@ -68,31 +71,37 @@ class CONTROLL:
             if self.isReseted:
                 self.isReseted = False
                 self.interval = 0
+                cf.interval = self.interval
+                self.set_volume()
             if dtState != clkState:
                 self.interval += self.step
                 if self.interval > self.max:
                     self.interval = self.max
                 cf.interval = self.interval
-                print(self.interval)
+                self.set_volume()
+                print(cf.interval)
             else:
                 self.interval -= self.step
                 if self.interval < self.min:
                     self.interval = self.min
                 cf.interval = self.interval
-                print(self.interval)
+                self.set_volume()
+                print(cf.interval)
         self.l_clkLastState = clkState
         #At the end check the current source and do the needed
-        if cf.source == 0:
-            self.set_volume()
+        
+        #print(self.interval)
         
     #volume controlled by left controll
     def set_volume(self):
-        command = ["amixer", "cset", "numid=3", "{}%".format(cf.interval)]
-        check_call(command, stdout=DEVNULL, stderr=STDOUT)
+        if cf.source == 0:
+            command = ["amixer", "cset", "numid=3", "{}%".format(cf.interval)]
+            check_call(command, stdout=DEVNULL, stderr=STDOUT)
     #volume by left controll
     def get_volume(self):
         command = ["amixer", "sget", "Master", "| awk -F'[][]' '{print $2}'"]
         self.interval = check_call(command, stdout=DEVNULL, stderr=STDOUT)
+        print(self.interval)
     #left controll
     def volume_state(self):
         volume = self.interval
@@ -130,17 +139,20 @@ class CONTROLL:
     def menu_control(self):
         if(self.interval >= 0 and self.interval <=25): 
             cf.source = 0
-            cf.defaultStart = 1
+            ap.play(self.Player)
+            cf.interval = 80
+            self.set_volume()
+            #cf.defaultStart = 1
             print("Selected option 1")
         if(self.interval >= 26 and self.interval <=50):
-            cf.source = 1
-            cf.defaultStart = 2
+            cf.source = 2
+            #cf.defaultStart = 2
             print("Selected option 2")
         if(self.interval >= 51 and self.interval <=75):
-            cf.source = 2
+            cf.source = 3
             print("Selected option 3")
         if(self.interval >= 76 and self.interval <=100):
-            cf.source = 3
+            cf.source = 4
             print("Selected option 4")
     #right button callback(probably to be better implemented)
     def pause_button_callback(self, channel):
@@ -166,7 +178,7 @@ class CONTROLL:
                 ap.next(self.Player)
                 print("Next")
         self.r_clkLastState = clkState
-
+        self.player_status()
 
     def prev_callback(self, channel):
         clkState = GPIO.input(self.r_clk)
@@ -176,7 +188,17 @@ class CONTROLL:
                 ap.previous(self.Player)
                 print("Previous")
         self.r_clkLastState = clkState
-    
+        self.player_status()
+        
+    def player_status (self):
+        #sleep(0.09)
+        if ap.player_status(self.Player):
+            cf.status = "play"
+        else:
+            cf.status = "pause"
+        cf.second_status = ""
+        
+            
     def get_palyer(self):
         self.Player = ap.loadPlayer()
     

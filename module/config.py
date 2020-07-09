@@ -5,7 +5,7 @@
 #import ConfigController as cf
 
 #todo: source selection
-source = 0
+source = 1
 defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
 
 if source == 0:
@@ -35,6 +35,7 @@ r_btn    = 13
 
 #status variable :todo, get the latest and save the current!
 status = "pause"
+second_status = ""
 
 #music info, for now, only from bluetooth
 music_info = ""
