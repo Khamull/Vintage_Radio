@@ -58,9 +58,11 @@ class CONTROLL:
         GPIO.add_event_detect(self.l_btn,GPIO.RISING,callback=self.button_callback, bouncetime=300)
         GPIO.add_event_detect(self.l_clk,GPIO.FALLING,callback=self.interval_calc,bouncetime=4) 
         
+        GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback,bouncetime=20)
+        GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback,bouncetime=20)
         #right controll        
-        GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback)
-        GPIO.add_event_detect(self.r_dt,GPIO.RISING,callback=self.prev_callback)
+        #GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback)
+        #GPIO.add_event_detect(self.r_dt,GPIO.RISING,callback=self.prev_callback)
         GPIO.add_event_detect(self.r_btn,GPIO.FALLING,callback=self.pause_button_callback,bouncetime=300)
         
     #interval for left control
@@ -87,10 +89,8 @@ class CONTROLL:
                 cf.interval = self.interval
                 self.set_volume()
                 #print(cf.interval)
-        self.l_clkLastState = clkState
-        #At the end check the current source and do the needed
-        
-        #print(self.interval)
+            self.l_clkLastState = clkState
+
         
     #volume controlled by left controll
     def set_volume(self):
@@ -182,7 +182,7 @@ class CONTROLL:
     def prev_callback(self, channel):
         clkState = GPIO.input(self.r_clk)
         dtState = GPIO.input(self.r_dt)
-        if clkState != self.r_clkLastState:
+        if dtState != self.r_clkLastState:
             if dtState != clkState:
                 ap.previous(self.vlc_player)
                 #print("Previous")
@@ -190,13 +190,13 @@ class CONTROLL:
         self.player_status()
         
     def player_status (self):
-        
+        sleep(0.1)
         if ap.player_status(self.vlc_player):
             cf.status = "play"
         else:
             cf.status = "pause"
-        sleep(0.1)
         cf.second_status = ""
+        
     
     
     def get_music_info(self):
@@ -211,7 +211,8 @@ class CONTROLL:
     
 
 def main():
-    pass
+    c = CONTROLL()
+    c.add_event_callbakcs()
 
 if __name__ == '__main__':
     print("main init")

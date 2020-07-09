@@ -5,12 +5,12 @@
 #import ConfigController as cf
 
 #todo: source selection
-source = 1
+source = 0
 defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
-
+interval_r = 0
 if source == 0:
     #volume variables
-    interval = 80
+    interval = 50
     lastVolume = 0
     min = 0
     max = 100
@@ -31,6 +31,7 @@ l_btn    = 17
 r_clk    = 26
 r_dt     = 6
 r_btn    = 13
+
 
 
 #status variable :todo, get the latest and save the current!
