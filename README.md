@@ -79,6 +79,9 @@ Specially, the ones that gives us the basic usage of the methods, that are, IMO 
 https://github.com/OSUrobotics/vlc/blob/master/src/vlc/libvlc.py
 https://www.programcreek.com/python/example/93375/vlc.Instance
 
+Was working on my own random function to load the playlists, and here is a simpler solution
+https://pynative.com/python-random-shuffle/
+
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
