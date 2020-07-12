@@ -14,6 +14,7 @@
 import vlc
 import FilesControll as fc
 import config as cf
+from time import sleep
 
 def loadPlayer():
     songList = fc.getListOfFiles("")
@@ -39,6 +40,7 @@ def elapsed_time(current, total, title):
 
 def play(player):
     player.play()
+    sleep(1)
     cf.status = "play"
 def next(player):
     cf.second_status = "next"
@@ -81,6 +83,20 @@ def music_info(player):
     
 def music_track_time(player): 
     return elapsed_time(player.get_media_player().get_time(),player.get_media_player().get_length(), player.get_media_player().audio_get_track())
+
+def playBackMode(player):
+    if cf.repeatAll:
+        player.set_playback_mode(vlc.PlaybackMode.default)
+        cf.repeatAll = False
+        cf.repeatOne = False
+    if cf.repeatOne:
+        player.set_playback_mode(vlc.PlaybackMode.loop)
+        cf.repeatAll = False
+        cf.repeatOne = True
+    if not cf.repeatOne and not cf.repeatAll:
+        player.set_playback_mode(vlc.PlaybackMode.repeat)
+        cf.repeatAll = False
+        cf.repeatOne = True
 
 def main():
     player = loadPlayer()

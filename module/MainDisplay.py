@@ -22,7 +22,7 @@ from time import sleep
 # How to get to menu? Long press of volume button/
 # navigate using Rotary+Press on option!
 
-codes = ["\uf027", "\uf6a9", "\uf026", "\uf028", "\uf28b", "\uf144", "\uf049", "\uf050" ]
+codes = CF.codes
 
 def make_font(name, size):
     return D.make_font(name, size)
@@ -53,10 +53,11 @@ def Time():
     today_time = now.strftime("%H:%M:%S")
 
 def makeFonts(device):
-    global font_basic, font_awesome, font_menu, font_basic_8
+    global font_basic, font_awesome, font_menu, font_basic_8, font_awesome_small
     font_basic = make_font("pixelmix.ttf", 10)
     font_basic_8 = make_font("pixelmix.ttf", 8)
     font_awesome = make_font("Font Awesome 5 Free-Solid-900.otf", device.height-48)
+    font_awesome_small = make_font("Font Awesome 5 Free-Solid-900.otf", device.height-55)
     font_menu = make_font("Font Awesome 5 Free-Solid-900.otf", 13)
 
 def updateMusic(c):
@@ -141,12 +142,12 @@ def draw_player(c):
                 volumetodisplay = str(CF.interval)+"%"
                 volume = CF.interval
                 #volume controls status info
-                draw.text((25, 50), volumetodisplay, font=font_basic, fill="white")
-                if volume > 0 and volume <= 40:
+                draw.text((25, 50), volumetodisplay, font=font_basic_8, fill="white")
+                if volume > 1 and volume <= 50:
                     draw.text((5, 45), text=codes[2], font=font_awesome, fill="white")
-                if volume > 40 and volume <=60:    
+                if volume > 51 and volume <=80:    
                     draw.text((5, 45), text=codes[0], font=font_awesome, fill="white")
-                if volume > 60:           
+                if volume > 80:           
                     draw.text((5, 45), text=codes[3], font=font_awesome, fill="white")
                 if volume <= 0:
                     draw.text((5, 45), text=codes[1], font=font_awesome, fill="white")
@@ -158,6 +159,12 @@ def draw_player(c):
                     draw.text((70, 45), text=codes[7], font=font_awesome, fill="white", contrast=10)
                 if CF.second_status == "prev":
                     draw.text((70, 45), text=codes[6], font=font_awesome, fill="white", contrast=10)
+                if CF.radom:
+                    draw.text((50, 45), text=codes[8], font=font_awesome_small, fill="white", contrast=10)
+                if CF.repeatAll:
+                    draw.text((50, 53), text=codes[9], font=font_awesome_small, fill="white", contrast=10)
+                if CF.repeatOne:
+                    draw.text((50, 53), text=codes[10], font=font_awesome_small, fill="white", contrast=10)
 
 def main():
     c = ctrl.CONTROLL()

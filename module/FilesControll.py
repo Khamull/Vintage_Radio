@@ -7,6 +7,7 @@
 
 import os
 import config as CF
+import random
 #use CD.iniFolder when none is provided
 def getListOfFiles(dirName):
     if dirName == "":
@@ -22,8 +23,11 @@ def getListOfFiles(dirName):
             #print(fullpath)
             allFiles = allFiles +  getListOfFiles(fullpath)
         else:
-            print(fullpath)
-            allFiles.append(fullpath)
+            if checkFormat(fullpath):
+                print(fullpath)
+                allFiles.append(fullpath)
+    if CF.radom:
+        return random.sample(allFiles, len(allFiles))
     return allFiles
 
 def _getListOfFiles(dirName):
@@ -34,7 +38,19 @@ def _getListOfFiles(dirName):
       
     # Print the files    
     for elem in listOfFiles:
-        print(elem)    
+        print(elem)
+def checkFormat(entry):
+    count = 0
+    for af in CF.audioFormats:
+        if entry.endswith(af):
+            count += 1
+    if count > 0:
+        return True
+    else:
+        return False
+
+    
+    
 
 def main():
     dirName = CF.initFolder

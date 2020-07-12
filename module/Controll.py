@@ -56,7 +56,9 @@ class CONTROLL:
         print("GPIO event add called")
         #left control
         GPIO.add_event_detect(self.l_btn,GPIO.RISING,callback=self.button_callback, bouncetime=300)
-        GPIO.add_event_detect(self.l_clk,GPIO.FALLING,callback=self.interval_calc,bouncetime=4) 
+        
+        GPIO.add_event_detect(self.l_clk,GPIO.FALLING,callback=self.interval_add_calc,bouncetime=20) 
+        GPIO.add_event_detect(self.l_dt,GPIO.FALLING,callback=self.interval_remove_calc,bouncetime=20)
         
         GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback,bouncetime=20)
         GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback,bouncetime=20)
@@ -65,16 +67,36 @@ class CONTROLL:
         #GPIO.add_event_detect(self.r_dt,GPIO.RISING,callback=self.prev_callback)
         GPIO.add_event_detect(self.r_btn,GPIO.FALLING,callback=self.pause_button_callback,bouncetime=300)
         
-    #interval for left control
-    def interval_calc(self, channel):
+#    #interval for left control
+#    def interval_calc(self, channel):
+#        clkState = GPIO.input(self.l_clk)
+#        dtState = GPIO.input(self.l_dt)
+#        if clkState != self.l_clkLastState:
+#            if self.isReseted:
+#                self.isReseted = False
+#                self.interval = 0
+#                cf.interval = self.interval
+#                self.set_volume()
+#            if dtState != clkState:
+#                self.interval += self.step
+#                if self.interval > self.max:
+#                    self.interval = self.max
+#                cf.interval = self.interval
+#                self.set_volume()
+#                #print(cf.interval)
+#            else:
+#                self.interval -= self.step
+#                if self.interval < self.min:
+#                    self.interval = self.min
+#                cf.interval = self.interval
+#                self.set_volume()
+#                #print(cf.interval)
+#            self.l_clkLastState = clkState
+    
+    def interval_add_calc(self, channel):
         clkState = GPIO.input(self.l_clk)
         dtState = GPIO.input(self.l_dt)
         if clkState != self.l_clkLastState:
-            if self.isReseted:
-                self.isReseted = False
-                self.interval = 0
-                cf.interval = self.interval
-                self.set_volume()
             if dtState != clkState:
                 self.interval += self.step
                 if self.interval > self.max:
@@ -82,7 +104,13 @@ class CONTROLL:
                 cf.interval = self.interval
                 self.set_volume()
                 #print(cf.interval)
-            else:
+            self.l_clkLastState = clkState
+    
+    def interval_remove_calc(self, channel):
+        clkState = GPIO.input(self.l_clk)
+        dtState = GPIO.input(self.l_dt)
+        if dtState != self.l_clkLastState:
+            if dtState != clkState:
                 self.interval -= self.step
                 if self.interval < self.min:
                     self.interval = self.min
@@ -190,7 +218,7 @@ class CONTROLL:
         self.player_status()
         
     def player_status (self):
-        sleep(0.1)
+        sleep(0.01)
         if ap.player_status(self.vlc_player):
             cf.status = "play"
         else:
