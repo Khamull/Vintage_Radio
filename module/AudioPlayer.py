@@ -5,8 +5,8 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-#   The ideia is simple ply a given audio file
-#   The commandas shoudl all be the same interface
+#   The ideia is simple play a given audio file
+#   The commands shoudl all be the same interface
 #   The ability to navigate in folders and access specific
 #   songs might be a good addon, also shuffle and repeat
 
@@ -15,6 +15,7 @@ import vlc
 import FilesControll as fc
 import config as cf
 from time import sleep
+import pygame as pg
 
 def loadPlayer():
     songList = fc.getListOfFiles("")
@@ -36,11 +37,9 @@ def elapsed_time(current, total, title):
         return result
     except:
         pass
-    
 
 def play(player):
     player.play()
-    sleep(1)
     cf.status = "play"
 def next(player):
     cf.second_status = "next"
@@ -99,11 +98,11 @@ def playBackMode(player):
         cf.repeatOne = True
 
 def main():
-    player = loadPlayer()
-    play(player)
-    while player_status(player):
-        music_track_time(player)
-        music_info(player)
+    p = loadPlayer()
+    p.get_media_player().audio_set_delay(30)
+    #sleep(5)
+    play(p)
+    
     
 if __name__ == '__main__':
     main()  

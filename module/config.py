@@ -104,9 +104,10 @@ audioFormats =[
 ]
 
 #Basic Playback Status
-radom = True
+random = True
 repeatAll = False
 repeatOne = True
+totalSongs = 0
 
 #fontawesome codes for icones https://fontawesome.com/v4.7.0/cheatsheet/
 codes = ["\uf027"       #fa-volume-down - 51->80

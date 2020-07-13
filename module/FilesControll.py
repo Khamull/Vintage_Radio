@@ -26,7 +26,7 @@ def getListOfFiles(dirName):
             if checkFormat(fullpath):
                 print(fullpath)
                 allFiles.append(fullpath)
-    if CF.radom:
+    if CF.random:
         return random.sample(allFiles, len(allFiles))
     return allFiles
 
@@ -35,10 +35,13 @@ def _getListOfFiles(dirName):
     listOfFiles = list()
     for (dirpath, dirnames, filenames) in os.walk(dirName):
         listOfFiles += [os.path.join(dirpath, file) for file in filenames]
-      
+    CF.totalSongs = listOfFiles.count
+    
     # Print the files    
     for elem in listOfFiles:
         print(elem)
+    print(CF.totalSongs)
+
 def checkFormat(entry):
     count = 0
     for af in CF.audioFormats:
@@ -48,9 +51,6 @@ def checkFormat(entry):
         return True
     else:
         return False
-
-    
-    
 
 def main():
     dirName = CF.initFolder

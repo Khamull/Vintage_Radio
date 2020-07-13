@@ -159,7 +159,7 @@ def draw_player(c):
                     draw.text((70, 45), text=codes[7], font=font_awesome, fill="white", contrast=10)
                 if CF.second_status == "prev":
                     draw.text((70, 45), text=codes[6], font=font_awesome, fill="white", contrast=10)
-                if CF.radom:
+                if CF.random:
                     draw.text((50, 45), text=codes[8], font=font_awesome_small, fill="white", contrast=10)
                 if CF.repeatAll:
                     draw.text((50, 53), text=codes[9], font=font_awesome_small, fill="white", contrast=10)

@@ -21,6 +21,7 @@ class VLC:
             self.mediaList.add_media(self.Player.media_new(os.path.join(path,s)))
         self.listPlayer = self.Player.media_list_player_new()
         self.listPlayer.set_media_list(self.mediaList)
+    
     def play(self):
         self.listPlayer.play()
     def next(self):
@@ -43,31 +44,9 @@ class VLC:
 def main():
     p = VLC()
     p.addPlaylist()
+    p.play()
    
-
-    
-    #print(p.get_media())
-    print(p.player_status())
-    time.sleep(5)
-    #0 = default
-    #1 = loop
-    #2 = Repeat
-   # p.set_playback_mode(2)
-    #p.next()
-   # time.sleep(5)
-   # p.next()
-   # time.sleep(5)
-    #p.previous()
-    p.set_playback_mode(1)
-    #time.sleep(5)
-    p.next()
-    #time.sleep(5)
-    #p.pause()
-    #time.sleep(10)
-    #p.play()
-    #print(p.set_test())
-    print(p.get_music_title())
-    
+ 
 
     
 if __name__ == '__main__':
