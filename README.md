@@ -82,6 +82,12 @@ https://www.programcreek.com/python/example/93375/vlc.Instance
 Was working on my own random function to load the playlists, and here is a simpler solution
 https://pynative.com/python-random-shuffle/
 
+Steps to make Luma Core to Work
+1 - Pip Install
+https://pillow.readthedocs.io/en/latest/installation.html
+2 - Luma.Core
+https://luma-oled.readthedocs.io/en/latest/install.html
+
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
