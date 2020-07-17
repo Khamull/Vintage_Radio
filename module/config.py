@@ -8,10 +8,11 @@
 source = 0
 defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
 interval_r = 0
+lastVolume = 80
+
 if source == 0:
     #volume variables
-    interval = 50
-    lastVolume = 0
+    interval = 80
     min = 0
     max = 100
     step = 5
@@ -121,3 +122,5 @@ codes = ["\uf027"       #fa-volume-down - 51->80
          , "\uf074"     # fa-random - random     
          , "\uf021"     # fa-refresh - Repeat all
          , "\uf079" ]   # fa-retweet - repeat one
+
+clicks = []

@@ -16,15 +16,24 @@ import FilesControll as fc
 import config as cf
 from time import sleep
 import pygame as pg
+instance = None
 
 def loadPlayer():
-    songList = fc.getListOfFiles("")
+    global instance
+    #songList = fc.getListOfFiles("")
     instance = vlc.Instance()
     player = instance.media_list_player_new()
     player.set_playback_mode(0)
-    media_list = instance.media_list_new(songList)
-    player.set_media_list(media_list)
+    #media_list = instance.media_list_new(songList)
+    player.set_media_list(loadPlaylist())
     return player
+
+def loadPlaylist():
+    global instace
+    songList = fc.getListOfFiles("")
+    instance = vlc.Instance()
+    media_list = instance.media_list_new(songList)
+    return media_list
 
 def elapsed_time(current, total, title):
     try:
@@ -99,9 +108,12 @@ def playBackMode(player):
 
 def main():
     p = loadPlayer()
-    p.get_media_player().audio_set_delay(30)
+    #p.get_media_player().audio_set_delay(30)
     #sleep(5)
     play(p)
+    while True:
+        print(music_info(p))
+        print(music_track_time(p))
     
     
 if __name__ == '__main__':
