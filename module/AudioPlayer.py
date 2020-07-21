@@ -15,25 +15,41 @@ import vlc
 import FilesControll as fc
 import config as cf
 from time import sleep
-import pygame as pg
+
 instance = None
 
 def loadPlayer():
     global instance
-    #songList = fc.getListOfFiles("")
-    instance = vlc.Instance()
-    player = instance.media_list_player_new()
-    player.set_playback_mode(0)
-    #media_list = instance.media_list_new(songList)
-    player.set_media_list(loadPlaylist())
-    return player
+    playList = loadPlaylist()
+    if len(playList) > 0:
+        cf.message = ""
+        instance = vlc.Instance()
+        player = instance.media_list_player_new()
+        player.set_playback_mode(cf.playbackMode)
+        #media_list = instance.media_list_new(songList)
+        media_list = instance.media_list_new(playList)
+        player.set_media_list(media_list)
+        return player
+    else:
+       cf.message = "No Audio Source"
+       return None
+
 
 def loadPlaylist():
     global instace
-    songList = fc.getListOfFiles("")
-    instance = vlc.Instance()
-    media_list = instance.media_list_new(songList)
-    return media_list
+    dirName = ""
+    if cf.source == 0:
+        dirName = cf.initFolder 
+        
+    elif cf.source == 3:
+        dirName = cf.USBFolder
+        cf.currentFolder = ""
+    elif cf.source == 5:
+        dirName = cf.listDirectories[cf.folderSelected]
+        cf.currentFolder = cf.listDirectories[cf.folderSelected]
+    songList = fc.getListOfFiles(dirName)
+    cf.currentPlayList = songList
+    return songList
 
 def elapsed_time(current, total, title):
     try:
@@ -64,7 +80,8 @@ def previous(player):
     
 def stop(player):
     cf.status = "stop"
-    player.stop()
+    if player is not None:
+        player.stop()
     
 def player_status(player):
     return player.is_playing()
@@ -92,28 +109,29 @@ def music_info(player):
 def music_track_time(player): 
     return elapsed_time(player.get_media_player().get_time(),player.get_media_player().get_length(), player.get_media_player().audio_get_track())
 
-def playBackMode(player):
-    if cf.repeatAll:
-        player.set_playback_mode(vlc.PlaybackMode.default)
-        cf.repeatAll = False
-        cf.repeatOne = False
-    if cf.repeatOne:
-        player.set_playback_mode(vlc.PlaybackMode.loop)
-        cf.repeatAll = False
-        cf.repeatOne = True
-    if not cf.repeatOne and not cf.repeatAll:
-        player.set_playback_mode(vlc.PlaybackMode.repeat)
-        cf.repeatAll = False
-        cf.repeatOne = True
 
+def setDefaultPlayBackMode(player):
+    player.set_playback_mode(0)
+
+def setLoopPlayBackMode(player):
+    player.set_playback_mode(1)
+
+def setRepeatOnePlayBackMode(player):
+    player.set_playback_mode(2)
+    
 def main():
     p = loadPlayer()
     #p.get_media_player().audio_set_delay(30)
     #sleep(5)
     play(p)
+    #playBackMode(p)
     while True:
         print(music_info(p))
         print(music_track_time(p))
+        sleep(5)
+        #playBackMode(p)
+        
+        
     
     
 if __name__ == '__main__':

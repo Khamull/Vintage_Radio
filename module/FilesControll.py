@@ -10,8 +10,6 @@ import config as CF
 import random
 #use CD.iniFolder when none is provided
 def getListOfFiles(dirName):
-    if dirName == "":
-        dirName = CF.initFolder
     #creat a files list and directories
     listOfFiles = os.listdir(dirName)
     allFiles = list()
@@ -41,6 +39,12 @@ def _getListOfFiles(dirName):
     for elem in listOfFiles:
         print(elem)
     print(CF.totalSongs)
+    
+def _getListOfFolders(dirName):
+    d = dirName
+    CF.listDirectories = [os.path.join(d, o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]#[x[0] for x in os.walk(d)]#[os.path.join(d, o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
+    CF.listDirectoriesSelect = [dirName for dirName in os.listdir(d) if os.path.isdir(os.path.join(d,dirName))]#[x[1] for x in os.walk(d)]#[dirName for dirName in os.listdir(d) if os.path.isdir(os.path.join(d,dirName))]
+    
 
 def checkFormat(entry):
     count = 0
@@ -51,6 +55,10 @@ def checkFormat(entry):
         return True
     else:
         return False
+    
+def randomPlayList():
+    return random.sample(CF.currentPlayList, len(CF.currentPlayList))
+    
 
 def main():
     dirName = CF.initFolder

@@ -7,15 +7,19 @@
 #todo: source selection
 source = 0
 defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
+lastOption = 0 #control from which menu I'm comming from, and if I had not choose another one, keep playing!
 interval_r = 0
 lastVolume = 80
+volumeToDisplay = 0
 
-if source == 0:
+
+#if source == 0 or source == 3:
     #volume variables
-    interval = 80
-    min = 0
-    max = 100
-    step = 5
+interval = 80
+min = 0
+max = 100
+step = 5
+
 if source == 1:
 #menu variables
     interval = 0
@@ -48,7 +52,7 @@ message = ""
 
 #initial musics folder
 initFolder  = "/home/pi/Music/"
-USBFolder   = ""
+USBFolder   = "/media/pi/"
 #local player variables
 musicName   = ""
 artist      = ""
@@ -106,8 +110,11 @@ audioFormats =[
 
 #Basic Playback Status
 random = True
-repeatAll = False
-repeatOne = True
+playbackMode = 0
+#PlaybackMode.default = PlaybackMode(0) 
+#PlaybackMode.loop    = PlaybackMode(1) 
+#PlaybackMode.repeat  = PlaybackMode(2) 
+
 totalSongs = 0
 
 #fontawesome codes for icones https://fontawesome.com/v4.7.0/cheatsheet/
@@ -121,6 +128,13 @@ codes = ["\uf027"       #fa-volume-down - 51->80
          , "\uf050"     # fa-fast-forward next
          , "\uf074"     # fa-random - random     
          , "\uf021"     # fa-refresh - Repeat all
-         , "\uf079" ]   # fa-retweet - repeat one
+         , "\uf079"     # fa-retweet - repeat one 
+         , "\uf0a0"     # fa-usb [&#xf287;] - When SOurce is the USB Stick 
+         , "\uf07c"]    #  source is local musics folder 
 
 clicks = []
+#directories list in folder navigation
+listDirectories = []
+listDirectoriesSelect = []
+currentFolder = ""
+folderSelected = 0

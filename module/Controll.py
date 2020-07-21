@@ -60,7 +60,7 @@ class CONTROLL:
         
         #right controll
         GPIO.add_event_detect(self.r_clk,GPIO.FALLING,callback=self.next_callback,bouncetime=20)
-        GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback,bouncetime=20)
+        GPIO.add_event_detect(self.r_dt,GPIO.FALLING,callback=self.prev_callback,bouncetime=4)
         GPIO.add_event_detect(self.r_btn,GPIO.FALLING,callback=self.pause_button_callback,bouncetime=300)
         
     
@@ -90,10 +90,21 @@ class CONTROLL:
                 print(cf.interval)
             self.l_clkLastState = clkState
 
-        
+    def checkNavigationSource(self, bit):
+        if bit:
+            self.step = 1
+            self.interval = 0
+            cf.interval = 0
+            self.max = len(cf.listDirectories)
+        else:
+            self.interval = cf.lastVolume
+            cf.interval = cf.lastVolume
+            self.step = cf.step
+            self.max = cf.max
     #volume controlled by left controll
     def set_volume(self):
-        if cf.source == 0:
+        #cf.interval = 0
+        if cf.source == 0 or cf.source == 3:
             #command = ["amixer", "cset", "numid=3", "{}%".format(cf.interval)]
             command = ["amixer", "cset", "numid=1", "{}%".format(cf.interval)]
             check_call(command, stdout=DEVNULL, stderr=STDOUT)
@@ -109,21 +120,23 @@ class CONTROLL:
             volume          = cf.lastVolume
             self.interval   = cf.lastVolume
             cf.interval     = cf.lastVolume
+            cf.volumeToDisplay = cf.interval
             self.isReseted = False
             #rint("Unmuted")
         else:
             cf.lastVolume = volume
             volume = 0
             self.isReseted = True
-            cf.interval = volume
-            self.interval = volume
+            cf.interval = 0
+            self.interval = 0
+            cf.volumeToDisplay = 0
             #print("Muted")
         self.set_volume() 
     
     #left button callback   
     def button_callback(self):
         print("Button CallBack")
-        if cf.source == 0:
+        if cf.source == 0 or cf.source == 3:
            #controls volume mute/unmute
            self.volume_state()
         if cf.source == 1:
@@ -133,9 +146,12 @@ class CONTROLL:
         if cf.source == 2:
             #gets the current selected menu option
            self.menu_control()
-        if cf.source == 3:
-            #gets the current selected menu option
-           self.menu_control()
+#        if cf.source == 3:
+#            #gets the current selected menu option
+#           self.menu_control()
+        if cf.source == 5:
+            cf.source = cf.lastOption
+            self.volume_state()
     
   
     #left menu controll   
@@ -144,21 +160,33 @@ class CONTROLL:
         print(cf.source)
         
         if(cf.interval >= 0 and cf.interval <=25): 
-            cf.source = 0
-            self.isReseted = True
-            #ap.play(self.vlc_player.player)
-            #cf.interval = 50
-            self.volume_state()
-            #cf.defaultStart = 1
-            print("Selected option 1")
+            if 0 == cf.lastOption:
+                cf.source = 0
+            else:
+                cf.lastOption = cf.source
+                cf.source = 0
+                self.isReseted = True
+                #ap.play(self.vlc_player.player)
+                #cf.interval = 50
+                self.volume_state()
+                #cf.defaultStart = 1
+                print("Selected option 1")
+                self.reloadPlayer()
         elif(cf.interval >= 26 and cf.interval <=50):
+            cf.lastOption = cf.source
             cf.source = 2
             #cf.defaultStart = 2
             print("Selected option 2")
         elif(cf.interval >= 51 and cf.interval <=75):
-            cf.source = 3
-            print("Selected option 3")
+            if 3 == cf.lastOption:
+                cf.source = 3
+            else:
+                cf.lastOption = cf.source
+                cf.source = 3
+                print("Selected option 3")
+                self.reloadPlayer()
         elif(cf.interval >= 76 and cf.interval <=100):
+            cf.lastOption = cf.source
             cf.source = 4
             print("Selected option 4")
         
@@ -222,12 +250,36 @@ class CONTROLL:
         except:
             pass
             
-    def get_palyer(self):
+    def get_player(self):
         self.vlc_player = ap.loadPlayer()
+    
+#    def RandomPlayList(self):
+#        randomPlayList
+#        cf.random = True
+        
+    def reloadPlayer(self):
+        ap.stop(self.vlc_player)
+        self.get_player()
+        sleep(0.1)
+        if self.vlc_player is not None:
+            ap.play(self.vlc_player)
+    
+    def changePlayBackMode(self):
+        if cf.playbackMode == 1:
+            ap.setDefaultPlayBackMode(self.vlc_player)
+            return 0
+        
+        elif cf.playbackMode == 2:
+            ap.setLoopPlayBackMode(self.vlc_player)
+            return 1
+        
+        elif cf.playbackMode == 0:
+            ap.setRepeatOnePlayBackMode(self.vlc_player)
+            return 2
         
     def main(self):
         self.add_event_callbakcs()
-        self.get_palyer()
+        self.get_player()
         ap.play(self.vlc_player)
 
 if __name__ == '__main__':

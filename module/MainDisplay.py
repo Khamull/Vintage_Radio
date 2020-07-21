@@ -68,6 +68,9 @@ class Display:
     def makeFonts(self, device):
         self.font_basic          = self.make_font("pixelmix.ttf", 10)
         self.font_basic_8        = self.make_font("pixelmix.ttf", 8)
+        #Font Awesome 5 Brands-Regular-400.otf
+        #self.font_awesome        = self.make_font("Font Awesome 5 Free-Solid-900.otf", device.height-48)
+        #self.font_awesome_small  = self.make_font("Font Awesome 5 Free-Solid-900.otf", device.height-55)
         self.font_awesome        = self.make_font("Font Awesome 5 Free-Solid-900.otf", device.height-48)
         self.font_awesome_small  = self.make_font("Font Awesome 5 Free-Solid-900.otf", device.height-55)
         self.font_menu           = self.make_font("Font Awesome 5 Free-Solid-900.otf", 13)
@@ -85,7 +88,8 @@ class Display:
                 draw.text((2, 1), self.today_date, fill="white")
                 draw.text((78, 1), self.today_time, fill="white")
                 draw.text((15, 14), "Bluetooth" , font=self.font_basic_8,fill="white")
-    def draw_usb(self):
+                
+    def draw_boat(self):
     #while CF.source == 1:    
         self.Time()
         with canvas(self.device) as draw:
@@ -97,7 +101,16 @@ class Display:
             draw.line((0, 13, 128, 13), fill="white")
             draw.text((2, 1), self.today_date, fill="white")
             draw.text((78, 1), self.today_time, fill="white")
-            draw.text((15, 14), "USB" , font=self.font_basic_8,fill="white")
+            draw.text((15, 14), "Folder Navigation" , font=self.font_basic_8,fill="white")
+            try:
+                draw.rectangle((9, 32, 122, 24) , outline="white", fill="white")
+                draw.text((10, 24), CF.listDirectoriesSelect[CF.interval] , font=self.font_basic_8,fill="black")
+                draw.text((10, 34), CF.listDirectoriesSelect[CF.interval+1] , font=self.font_basic_8,fill="white")
+                draw.text((10, 44), CF.listDirectoriesSelect[CF.interval+2] , font=self.font_basic_8,fill="white")
+                draw.text((10, 54), CF.listDirectoriesSelect[CF.interval+3] , font=self.font_basic_8,fill="white")
+            except:
+                pass
+            
             
     def draw_settings(self):
     #while CF.source == 1:    
@@ -170,13 +183,15 @@ class Display:
                     draw.text((78, 1), self.today_time, fill="white")
                     #info = ctrl.get_music_info()
                     #music name, artist and album(may be next music inline)
-    
-                    try:
-                        draw.text(((self.device.width/4.3)- len(CF.music_info[0]), 14), CF.music_info[0]  , font=self.font_basic_8,fill="white")
-                        draw.text(((self.device.width/3)- len(CF.music_info[1]), 22), CF.music_info[1]  , font=self.font_basic_8,fill="white")
-                        draw.text(((self.device.width/3)- len(CF.time), 32), CF.time  , font=self.font_basic_8,fill="white")
-                    except:
-                        pass
+                    if(CF.message):
+                        draw.text((25, 14), CF.message  , font=self.font_basic_8,fill="white")
+                    else:
+                        try:
+                            draw.text(((self.device.width/4.3)- len(CF.music_info[0]), 14), CF.music_info[0]  , font=self.font_basic_8,fill="white")
+                            draw.text(((self.device.width/3)- len(CF.music_info[1]), 22), CF.music_info[1]  , font=self.font_basic_8,fill="white")
+                            draw.text(((self.device.width/3)- len(CF.time), 32), CF.time  , font=self.font_basic_8,fill="white")
+                        except:
+                            pass
                     
                     #text position for music info(can be better) TODO: a Better Scroll 
                     #c.get_music_info()
@@ -201,27 +216,33 @@ class Display:
                     if CF.status == "pause":
                         draw.text((110, 45), text=self.codes[4], font=self.font_awesome, fill="white", contrast=10)
                     if CF.second_status == "next":
-                        draw.text((70, 45), text=self.codes[7], font=self.font_awesome, fill="white", contrast=10)
+                        draw.text((80, 45), text=self.codes[7], font=self.font_awesome, fill="white", contrast=10)
                     if CF.second_status == "prev":
-                        draw.text((70, 45), text=self.codes[6], font=self.font_awesome, fill="white", contrast=10)
+                        draw.text((80, 45), text=self.codes[6], font=self.font_awesome, fill="white", contrast=10)
                     if CF.random:
                         draw.text((50, 45), text=self.codes[8], font=self.font_awesome_small, fill="white", contrast=10)
-                    if CF.repeatAll:
+                    if CF.playbackMode == 1:
                         draw.text((50, 53), text=self.codes[9], font=self.font_awesome_small, fill="white", contrast=10)
-                    if CF.repeatOne:
+                    if CF.playbackMode == 2:
                         draw.text((50, 53), text=self.codes[10], font=self.font_awesome_small, fill="white", contrast=10)
+                    if CF.playbackMode == 0:
+                        draw.text((50, 53), text="", font=self.font_awesome_small, fill="white", contrast=10)
+                    if CF.source == 3:
+                        draw.text((65, 53), text=self.codes[11], font=self.font_awesome_small, fill="white", contrast=10)
+                    if CF.source == 0:
+                        draw.text((65, 53), text=self.codes[12], font=self.font_awesome_small, fill="white", contrast=10)
 
     def main(self):
-        if CF.source == 0:
+        if CF.source == 0 or CF.source == 3:
             self.draw_player()
         if CF.source == 1:
             self.draw_menu()
         if CF.source == 2:
             self.draw_bluetooth()
-        if CF.source == 3:
-            self.draw_usb()
         if CF.source == 4:
             self.draw_settings()
+        if CF.source == 5:
+            self.draw_boat()
 
 
 if __name__ == "__main__":
