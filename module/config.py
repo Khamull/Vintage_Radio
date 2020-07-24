@@ -12,13 +12,12 @@ interval_r = 0
 lastVolume = 80
 volumeToDisplay = 0
 
-
-#if source == 0 or source == 3:
+if source == 0 or source == 3:
     #volume variables
-interval = 80
-min = 0
-max = 100
-step = 5
+    interval = 80
+    min = 0
+    max = 100
+    step = 5
 
 if source == 1:
 #menu variables
@@ -109,7 +108,7 @@ audioFormats =[
 ]
 
 #Basic Playback Status
-random = True
+random = False
 playbackMode = 0
 #PlaybackMode.default = PlaybackMode(0) 
 #PlaybackMode.loop    = PlaybackMode(1) 
@@ -138,3 +137,5 @@ listDirectories = []
 listDirectoriesSelect = []
 currentFolder = ""
 folderSelected = 0
+#tostore the basic state of blutooth adapter, so we can re start them as they were
+btLastState = []

@@ -4,7 +4,6 @@ import config as cf
 from subprocess import DEVNULL, STDOUT, check_call
 import AudioPlayer as ap
 from time import sleep
-from threading import Thread
 
 class CONTROLL:
     def __init__(self):
@@ -253,9 +252,13 @@ class CONTROLL:
     def get_player(self):
         self.vlc_player = ap.loadPlayer()
     
-#    def RandomPlayList(self):
-#        randomPlayList
-#        cf.random = True
+    def RandomPlayList(self):
+        if cf.random:
+            cf.random = False
+        elif not cf.random:
+            cf.random = True
+        self.reloadPlayer()
+        
         
     def reloadPlayer(self):
         ap.stop(self.vlc_player)
