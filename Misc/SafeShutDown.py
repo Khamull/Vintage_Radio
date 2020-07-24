@@ -6,9 +6,9 @@ import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 import subprocess
 from time import sleep
 
-GPIO.setmode(GPIO.BOARD) # use GPIO numbering
+GPIO.setmode(GPIO.BCM) # use GPIO numbering
 GPIO.setwarnings(False)
-btn = 15
+btn = 17
 # use a weak pull_up to create a high
 GPIO.setup(btn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 

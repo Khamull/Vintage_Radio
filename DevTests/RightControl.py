@@ -8,9 +8,12 @@ from gi.repository import GLib
 from RPi import GPIO
 from time import sleep
 
-clk = 27
-dt = 17
-btn = 22
+#clk = 27
+#dt = 17
+#btn = 22
+clk    = 26
+dt     = 6
+btn    = 13
 
 # vals from output of amixer cget numid=1
 min = 0

@@ -1,17 +1,141 @@
 # -*- coding: utf-8 -*-
-#file created to share global variables troughout modules!
+# file created to share global variables troughout modules!
+# will probably read and right to a config file!
 
+#import ConfigController as cf
 
-#volume variables
-volume = 80
 #todo: source selection
 source = 0
-#bluetooth variables configuration
+defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
+lastOption = 0 #control from which menu I'm comming from, and if I had not choose another one, keep playing!
+interval_r = 0
+lastVolume = 80
+volumeToDisplay = 0
+
+if source == 0 or source == 3:
+    #volume variables
+    interval = 80
+    min = 0
+    max = 100
+    step = 5
+
+if source == 1:
+#menu variables
+    interval = 0
+    min = 0
+    max = 100
+    step = 5
+
+#left rotary config
+l_clk    = 22
+l_dt     = 27
+l_btn    = 17
+
+#right rotary config
+r_clk    = 26
+r_dt     = 6
+r_btn    = 13
+
+
+
+#status variable :todo, get the latest and save the current!
 status = "pause"
+second_status = ""
+
 #music info, for now, only from bluetooth
-music_info = ""
+music_info = []
 next_music_info =  ""
 #status messages in errors cases
 message = ""
-#interval of the menu
-interval = 0
+
+
+#initial musics folder
+initFolder  = "/home/pi/Music/"
+USBFolder   = "/media/pi/"
+#local player variables
+musicName   = ""
+artist      = ""
+album       = ""
+time        = ""
+
+#accepted audio files, so I avoid image and text files!
+audioFormats =[
+     ".3gp"
+    ,".aa"
+    ,".aac"
+    ,".aax"
+    ,".act"
+    ,".aiff"
+    ,".alac"
+    ,".amr"
+    ,".ape"
+    ,".au"
+    ,".awb"
+    ,".dct"
+    ,".dss"
+    ,".dvf"
+    ,".flac"
+    ,".gsm"
+    ,".iklax	"
+    ,".ivs"
+    ,".m4a"
+    ,".m4b"
+    ,".m4p"
+    ,".mmf"
+    ,".mp3"
+    ,".mpc"
+    ,".msv"
+    ,".m3u"
+    ,".ogg"
+    ,".oga"
+    ,".mogg"
+    ,".opus"
+    ,".ra"
+    ,".rm"
+    ,".raw"
+    ,".rf64"
+    ,".sln"
+    ,".tta"
+    ,".voc"
+    ,".vox"
+    ,".wav"
+    ,".wma"
+    ,".wv"
+    ,".webm"
+    ,".8svx"
+    ,".cda"
+    ,".flac"
+]
+
+#Basic Playback Status
+random = False
+playbackMode = 0
+#PlaybackMode.default = PlaybackMode(0) 
+#PlaybackMode.loop    = PlaybackMode(1) 
+#PlaybackMode.repeat  = PlaybackMode(2) 
+
+totalSongs = 0
+
+#fontawesome codes for icones https://fontawesome.com/v4.7.0/cheatsheet/
+codes = ["\uf027"       #fa-volume-down - 51->80
+         , "\uf6a9"     #mute -> 0%
+         , "\uf026"     # fa-volume-off Low Audio 1 - > 50%
+         , "\uf028"     #  fa-volume-up VolumeFull 80 -> 100%
+         , "\uf28b"     # fa-pause-circle - pause
+         , "\uf144"     # fa-play-circle - Play
+         , "\uf049"     # fa-fast-backward previous   
+         , "\uf050"     # fa-fast-forward next
+         , "\uf074"     # fa-random - random     
+         , "\uf021"     # fa-refresh - Repeat all
+         , "\uf079"     # fa-retweet - repeat one 
+         , "\uf0a0"     # fa-usb [&#xf287;] - When SOurce is the USB Stick 
+         , "\uf07c"]    #  source is local musics folder 
+
+clicks = []
+#directories list in folder navigation
+listDirectories = []
+listDirectoriesSelect = []
+currentFolder = ""
+folderSelected = 0
+#tostore the basic state of blutooth adapter, so we can re start them as they were
+btLastState = []
