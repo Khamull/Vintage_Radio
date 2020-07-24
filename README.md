@@ -51,6 +51,11 @@ Had to tweak a little to get the disply working, and, since a few weeks have pas
 <li>I’ve started here, trying to figure out how to control the volume with ALSA Mixer and the Rotary Encoder.</li>
 </ul>
 </li>
+<li>module
+<ul>
+<li>I've advanced in python studys and had the clever ideia of keeping the working solution in a specific folder, the code that is working, is in module folder!
+</ul>
+</li>
 <li><a href="http://ReadME.md">ReadME.md</a> - this File</li>
 </ul>
 <h1 id="tutorials-and-useful-links">Tutorials and Useful Links</h1>
