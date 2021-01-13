@@ -95,6 +95,10 @@ https://pillow.readthedocs.io/en/latest/installation.html
 https://luma-oled.readthedocs.io/en/latest/install.html
 3 - Install Python VLC
 
+**Test with this solution ** The idea changes from a central place to recall every thing for each type of player
+
+https://github.com/Douglas6/blueplayer
+
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
