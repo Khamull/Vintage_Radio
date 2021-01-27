@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jan 25 06:35:44 2021
-
 @author: pi
 """
 
@@ -90,6 +89,7 @@ class BluePlayer(dbus.service.Object):
     discoverable = None
     track = None
     mainloop = None
+    
 
    # def __init__(self, lcd):
    #     self.lcd = lcd
@@ -216,6 +216,7 @@ class BluePlayer(dbus.service.Object):
                 self.updateDisplay()
 
     def updateDisplay(self):
+        #while True:
         self.lcd.main()
         """Display the current status of the device on the LCD"""
         logging.debug("Updating display for connected: [{}]; state: [{}]; status: [{}]; discoverable [{}]".format(self.connected, self.state, self.status, self.discoverable))
@@ -229,10 +230,13 @@ class BluePlayer(dbus.service.Object):
                 else:
                     self.wake()
                     if self.status == "paused":
+                        md.CF.status = "pause"
                         self.showPaused()
                     else:
+                        md.CF.status = "play"
                         self.showTrack()
             else:
+
                 self.sleep()
 
     def showDevice(self):
@@ -243,16 +247,59 @@ class BluePlayer(dbus.service.Object):
         print("Clear Display")
         print("Connected to :", 0)
         print(self.deviceAlias, 1)
-        time.sleep(2)
+        time.sleep(0)
+    
+    def sleep(self):
+        time.sleep(0)
 
     def showTrack(self):
+        #md.CF.source = 3
+        md.CF.music_info = ["Artista", "Musica"]
+        print(md.CF.source)
         """Display track info on the LCD"""
         if "Artist" in self.track:
-            self.lcd.artista = self.track["Artist"]
-            if self.track["Title"]:
-                self.lcd.nomeMusica = self.track["Title"]
+            try:
+                #self.lcd.artista = self.track["Artist"]
+                print(self.track["Artist"])
+                md.CF.music_info[0] = self.track["Artist"]
+            except:
+                pass
+            try:
+                if self.track["Title"]:
+                    print(self.track["Title"])
+                    md.CF.music_info[1] = self.track["Title"]
+                    
+            except:
+                pass
         elif "Title" in self.track:
-            self.lcd.nomeMusica =self.track["Title"]
+            try:
+                print(self.track["Title"])
+                md.CF.music_info[1]= self.track["Title"]
+                
+                
+            except:
+                pass
+        #print("All the info = "+ list[0])    
+        #print(list[0])
+
+#        print(date.now())
+#        try:
+#            
+#            """Display track info on the LCD"""
+#            if "Artist" in self.track:#
+#                print(self.track["Artist"])
+#                cf.music_info[0] = self.track["Artist"]
+#                if self.track["Title"]:
+#                    print(self.track["Title"])
+#                    cf.music_info[1] = self.track["Title"]
+#            #    self.lcd.nomeMusica = self.track["Title"]
+#            elif "Title" in self.track:
+#                cf.music_info[1] = print(self.track["Title"])
+#                #self.lcd.nomeMusica =self.track["Title"]
+#            
+#        except:
+#            pass
+        
 
     def showPaused(self):
         #self.lcd.clear()

@@ -10,7 +10,7 @@ from luma.core.render import canvas
 import datetime
 import Device as D
 import config as CF
-import ClickControll as CC
+#import ClickControll as CC
 
 #start the screen
 # menu options if none is preseted are 1 - MP3(Internal) 2 - Bluetooth 3 - USB 4 - Settings
@@ -34,7 +34,6 @@ class Display:
         self.font_menu          = None
         self.interval = CF.interval
         self.source = CF.source
-        
         self.makeFonts(self.device)
         
     def make_font(self, name, size):
@@ -75,19 +74,6 @@ class Display:
         self.font_awesome_small  = self.make_font("Font Awesome 5 Free-Solid-900.otf", device.height-55)
         self.font_menu           = self.make_font("Font Awesome 5 Free-Solid-900.otf", 13)
 
-    def draw_bluetooth(self):
-        #while CF.source == 1:    
-            self.Time()
-            with canvas(self.device) as draw:
-                #basic outline Box and text rendered in portrait mode
-                #draw.rectangle(device.bounding_box, outline="white", fill="black")
-                D.draw_rectangle(draw, self.device)
-                
-                #date and time
-                draw.line((0, 13, 128, 13), fill="white")
-                draw.text((2, 1), self.today_date, fill="white")
-                draw.text((78, 1), self.today_time, fill="white")
-                draw.text((15, 14), "Bluetooth" , font=self.font_basic_8,fill="white")
                 
     def draw_boat(self):
     #while CF.source == 1:    
@@ -183,15 +169,12 @@ class Display:
                     draw.text((78, 1), self.today_time, fill="white")
                     #info = ctrl.get_music_info()
                     #music name, artist and album(may be next music inline)
-                    if(CF.message):
-                        draw.text((25, 14), CF.message  , font=self.font_basic_8,fill="white")
-                    else:
-                        try:
-                            draw.text(((self.device.width/4.3)- len(CF.music_info[0]), 14), CF.music_info[0]  , font=self.font_basic_8,fill="white")
-                            draw.text(((self.device.width/3)- len(CF.music_info[1]), 22), CF.music_info[1]  , font=self.font_basic_8,fill="white")
-                            draw.text(((self.device.width/3)- len(CF.time), 32), CF.time  , font=self.font_basic_8,fill="white")
-                        except:
-                            pass
+                    try:
+                        draw.text(((self.device.width/4.3)- len(CF.music_info[0]), 14), CF.music_info[0]  , font=self.font_basic_8,fill="white")
+                        draw.text(((self.device.width/3)- len(CF.music_info[1]), 22), CF.music_info[1]  , font=self.font_basic_8,fill="white")
+                        draw.text(((self.device.width/3)- len(CF.time), 32), CF.time  , font=self.font_basic_8,fill="white")
+                    except:
+                        pass
                     
                     #text position for music info(can be better) TODO: a Better Scroll 
                     #c.get_music_info()
@@ -231,14 +214,14 @@ class Display:
                         draw.text((65, 53), text=self.codes[11], font=self.font_awesome_small, fill="white", contrast=10)
                     if CF.source == 0:
                         draw.text((65, 53), text=self.codes[12], font=self.font_awesome_small, fill="white", contrast=10)
+                    if CF.source == 2:
+                        draw.text((65, 53), text=self.codes[13], font=self.font_awesome_small, fill="white", contrast=10)
 
     def main(self):
-        if CF.source == 0 or CF.source == 3:
+        if CF.source == 0 or CF.source == 3 or CF.source == 2:
             self.draw_player()
         if CF.source == 1:
             self.draw_menu()
-        if CF.source == 2:
-            self.draw_bluetooth()
         if CF.source == 4:
             self.draw_settings()
         if CF.source == 5:

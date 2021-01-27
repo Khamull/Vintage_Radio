@@ -8,11 +8,11 @@
 source = 0
 defaultStart = 1#0 to menu, 1 to Local MP#, 2 To Bluetooth(have tom implement yet)
 lastOption = 0 #control from which menu I'm comming from, and if I had not choose another one, keep playing!
-interval_r = 0
+interval = 0
 lastVolume = 80
 volumeToDisplay = 0
 
-if source == 0 or source == 3:
+if source == 0 or source == 3 or source == 2:
     #volume variables
     interval = 80
     min = 0
@@ -43,8 +43,9 @@ status = "pause"
 second_status = ""
 
 #music info, for now, only from bluetooth
-music_info = []
+music_info = [0,1]
 next_music_info =  ""
+artista = ""
 #status messages in errors cases
 message = ""
 
@@ -120,7 +121,7 @@ totalSongs = 0
 codes = ["\uf027"       #fa-volume-down - 51->80
          , "\uf6a9"     #mute -> 0%
          , "\uf026"     # fa-volume-off Low Audio 1 - > 50%
-         , "\uf028"     #  fa-volume-up VolumeFull 80 -> 100%
+         , "\uf028"     # fa-volume-up VolumeFull 80 -> 100%
          , "\uf28b"     # fa-pause-circle - pause
          , "\uf144"     # fa-play-circle - Play
          , "\uf049"     # fa-fast-backward previous   
@@ -129,8 +130,8 @@ codes = ["\uf027"       #fa-volume-down - 51->80
          , "\uf021"     # fa-refresh - Repeat all
          , "\uf079"     # fa-retweet - repeat one 
          , "\uf0a0"     # fa-usb [&#xf287;] - When SOurce is the USB Stick 
-         , "\uf07c"]    #  source is local musics folder 
-
+         , "\uf07c"     #  source is local musics folder 
+         , "\uf09e"]    #  source is bt
 clicks = []
 #directories list in folder navigation
 listDirectories = []

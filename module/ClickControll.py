@@ -14,6 +14,8 @@ import MainDisplay as m
 import Controll as C
 import AudioPlayer as ap
 import FilesControll as fc
+#import BtMediaControll as btc
+#import BtMediaControll as btM
 
 class Click:
     def __init__(self):
@@ -30,6 +32,7 @@ class Click:
         self.controll.get_player()
         self.controll.add_event_callbakcs()
         self.vlc_player = self.controll.vlc_player
+        #self.BTC = btc.BluePlayer(self.display)
         ap.play(self.vlc_player)
         
         
