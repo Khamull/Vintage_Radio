@@ -99,6 +99,10 @@ https://luma-oled.readthedocs.io/en/latest/install.html
 
 https://github.com/Douglas6/blueplayer
 
+After some time battleling with my custom code, I found this one, much more stable for my rotarys!
+https://pypi.org/project/pigpio-encoder/
+Which let me free to add other features to my code more cleanly
+
 
 <!--stackedit_data:
 eyJkaXNjdXNzaW9ucyI6eyIwZzVaVHp5ck9WT204c0ZVIjp7In
