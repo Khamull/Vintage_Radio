@@ -38,15 +38,15 @@ def loadPlayer():
 def loadPlaylist():
     global instace
     dirName = ""
-    if cf.source == 0:
-        dirName = cf.initFolder 
-        
-    elif cf.source == 3:
-        dirName = cf.USBFolder
-        cf.currentFolder = ""
-    elif cf.source == 5:
+    if cf.source == 5:
         dirName = cf.listDirectories[cf.folderSelected]
         cf.currentFolder = cf.listDirectories[cf.folderSelected]
+    if cf.source == 0:
+        dirName = cf.initFolder 
+    if cf.source == 3:
+        dirName = cf.USBFolder
+        cf.currentFolder = ""
+    
     songList = fc.getListOfFiles(dirName)
     cf.currentPlayList = songList
     return songList
@@ -104,7 +104,7 @@ def music_info(player):
     #TrackId = ""
     #   print(player.get_media_player().get_time())# will return path of current playing mp3 or mp4(sample from where I got the idea)    
     #   player.get_media_player().get_media().get_meta(0)
-    #   gets different meta for display!
+    #   gets different meta for display!loadPlayer
     
 def music_track_time(player): 
     return elapsed_time(player.get_media_player().get_time(),player.get_media_player().get_length(), player.get_media_player().audio_get_track())
