@@ -3,12 +3,12 @@
 """
 Created on Mon Jul 26 01:27:01 2021
 
-@author: pi
+@author: Charles Path
 """
 
 import RWorker, LWorker
+import RotaryDigest as RD
 from threading import Thread
-from time import sleep
 from queue import Queue
 
 def rightWorkerCall(q):
@@ -17,21 +17,27 @@ def rightWorkerCall(q):
 def leftWorkerCall(q):
     LWorker.main(q)
 
-def pRResult(q):
+def pRResult(q,qo):
+    rd = RD.RotaryDigest()
     while True:
-        print("R:", q.get())
+        rd.interval(q,qo)
+        print("R:", qo.get())
 
-def pLResult(q):
+def pLResult(q,qo):
+    rd = RD.RotaryDigest()
     while True:
-        print("L:",q.get())
-
+        rd.interval(q,qo)
+        print("L:",qo.get())
+        
 if __name__ == "__main__":
     qr = Queue()
     ql = Queue()
+    qor = Queue()
+    qol = Queue()
     t1 = Thread(target = rightWorkerCall, args=(qr,))
     t2 = Thread(target = leftWorkerCall, args=(ql,))
-    t3 = Thread(target = pRResult, args=(qr,))
-    t4 = Thread(target = pLResult, args=(ql,))
+    t3 = Thread(target = pRResult, args=(qr,qor))
+    t4 = Thread(target = pLResult, args=(ql,qol))
     t1.start()
     t2.start()
     t3.start()

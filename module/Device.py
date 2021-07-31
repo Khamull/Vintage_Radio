@@ -29,3 +29,4 @@ def make_font(name, size):
 
 def draw_rectangle(draw, device):
     draw.rectangle(device.bounding_box, outline="white", fill="black")
+

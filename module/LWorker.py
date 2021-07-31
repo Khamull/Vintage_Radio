@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Created on Fri Jul 30 22:41:23 2021
 
+@author: Charles Path
+"""
 from pigpio_encoder.rotary import Rotary
-import config as cf
 import sys
 from queue import Queue as Q
 qr = Q()
@@ -24,14 +27,14 @@ def sw_long():
 def up_callback(counter):
     #output("1 \n")
     global qr
-    qr.put("1 \n")
+    qr.put("1\n")
     #print("Up rotation")
     #print("Counter value: ", counter)
 
 def down_callback(counter):
     #output("0 \n")
     global qr
-    qr.put("0 \n")
+    qr.put("0\n")
     #print("Down rotation")
     #print("Counter value: ", counter)
 
@@ -41,7 +44,7 @@ def output(output):
 def main(q):
     
     
-    my_rotary = Rotary(clk_gpio=27, dt_gpio=22, sw_gpio=17)
+    my_rotary = Rotary(clk_gpio=6, dt_gpio=26, sw_gpio=13)
     
     
     my_rotary.setup_rotary(min=0, max=100

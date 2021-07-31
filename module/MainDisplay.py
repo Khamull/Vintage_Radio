@@ -10,7 +10,6 @@ from luma.core.render import canvas
 import datetime
 import Device as D
 import config as CF
-import ClickControll as CC
 
 #start the screen
 # menu options if none is preseted are 1 - MP3(Internal) 2 - Bluetooth 3 - USB 4 - Settings
