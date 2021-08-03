@@ -25,4 +25,28 @@ class RotaryDigest:
                     self.counter -= self.step
         qo.put(self.counter)        
     
+    #notsure, but we might need some calcs heres, will see when we got there!
+    def hOrientation(self, q, qo):
+        
+        if q.get() == "1\n":
+            qo.put("r")
+        else:
+            qo.put("l")
     
+    def vOrientation(self, q, qo):
+        
+        if q.get() == "1\n":
+            qo.put("u")
+        else:
+            qo.put("d") 
+    #end of the might do come calcs
+    
+    #clicks from here on
+    #count time between clicks and return the type
+    def clicks(self, q, qo):
+        pass
+    #count times for long clicks
+    def longClikcs(self, q, qo):
+        pass
+    def calcTime():
+        pass

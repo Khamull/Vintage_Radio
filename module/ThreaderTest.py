@@ -30,14 +30,18 @@ def pLResult(q,qo):
         print("L:",qo.get())
         
 if __name__ == "__main__":
+    
     qr = Queue()
     ql = Queue()
     qor = Queue()
     qol = Queue()
+    
     t1 = Thread(target = rightWorkerCall, args=(qr,))
     t2 = Thread(target = leftWorkerCall, args=(ql,))
+    
     t3 = Thread(target = pRResult, args=(qr,qor))
     t4 = Thread(target = pLResult, args=(ql,qol))
+    
     t1.start()
     t2.start()
     t3.start()
