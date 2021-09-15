@@ -7,12 +7,19 @@ Get's rotary queue and can return counter, position up or down, rotation positio
 
 @author: Charles Path
 """
+
 class RotaryDigest:
     def __init__(self):
-        self.counter    = 0
-        self.step       = 5
-        self.max = 100
-        self.min = 0
+        self.counter            = 0
+        self.step               = 5
+        self.max                = 100
+        self.min                = 0
+        self.timeout            = 0.5 # how long can pass between two clicks to consider them part of the same event
+        self.short_click        = 0.65 # length of a single click
+        self.long_click         = 1.0 # length of a long click
+        self.very_long_click    = 4.0 # length of a veeeery long click
+        self.clicks             = []
+        
 
     def interval(self, q, qo):
         
@@ -34,7 +41,6 @@ class RotaryDigest:
             qo.put("l")
     
     def vOrientation(self, q, qo):
-        
         if q.get() == "1\n":
             qo.put("u")
         else:
@@ -43,10 +49,18 @@ class RotaryDigest:
     
     #clicks from here on
     #count time between clicks and return the type
-    def clicks(self, q, qo):
-        pass
+    def clicksDigest(self, q, qo):
+        if q.get() == "S":
+            qo.put("Short")
+        else:
+            qo.put("Long")
+        #if q.get() == "S":
+        #    qo.put("short")
+        #else:
+        #    qo.put("long")
     #count times for long clicks
     def longClikcs(self, q, qo):
         pass
     def calcTime():
         pass
+    

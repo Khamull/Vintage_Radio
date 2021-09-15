@@ -8,57 +8,62 @@ Created on Fri Jul 30 22:41:23 2021
 from pigpio_encoder.rotary import Rotary
 import sys
 from queue import Queue as Q
-qr = Q()
 
-def rotary_callback(counter):
-    output("")
-    #print("Counter value: ", counter)
+class rWorker:
+    def __init__(self):
+        self.qr = Q()
+        self.qc = Q()
 
-def sw_short():
-    global qr
-    qr.put("s \n")
-    #print("Switch pressed")
+    def rotary_callback(self, counter):
+        pass
+        #print("Counter value: ", counter)
+    
+    def sw_short(self):
+        self.qc.put("S")
+        #print("Switch pressed")
+    
+    def sw_long(self):
+        self.qc.put("L")
+        #print("Switch long press")
+    
+    def up_callback(self, counter):
+        #output("1 \n")
+        self.qr.put("1\n")
+        #print("Up rotation")
+        #print("Counter value: ", counter)
+    
+    def down_callback(self, counter):
+        #output("0 \n")
 
-def sw_long():
-    global qr
-    qr.put("l \n")
-    #print("Switch long press")
-
-def up_callback(counter):
-    #output("1 \n")
-    global qr
-    qr.put("1\n")
-    #print("Up rotation")
-    #print("Counter value: ", counter)
-
-def down_callback(counter):
-    #output("0 \n")
-    global qr
-    qr.put("0\n")
-    #print("Down rotation")
-    #print("Counter value: ", counter)
-
-def output(output):
-    sys.stdout.write(output)
+        self.qr.put("0\n")
+        #print("Down rotation")
+        #print("Counter value: ", counter)
     
-def main(q):
+    def output(self, output):
+        sys.stdout.write(output)
     
-    my_rotary = Rotary(clk_gpio=27, dt_gpio=22, sw_gpio=17)
+    def isClick(self, q):
+        self.qc = q
     
-    
-    
-    my_rotary.setup_rotary(min=0, max=100
-                           , scale=5, debounce=200
-                           , rotary_callback=rotary_callback
-                           , up_callback=up_callback
-                           , down_callback=down_callback)
-    
-    my_rotary.setup_switch(debounce=300
-                           , long_press=True
-                           , sw_short_callback=sw_short
-                           , sw_long_callback=sw_long)
-    global qr
-    qr = q
-    
-    my_rotary.watch()
+    def isRotation(self, q):
+        self.qr = q
+        
+    def main(self):
+        
+        my_rotary = Rotary(clk_gpio=27, dt_gpio=22, sw_gpio=17)
+        
+        
+        
+        my_rotary.setup_rotary(min=0, max=100
+                               , scale=5, debounce=200
+                               , rotary_callback=self.rotary_callback
+                               , up_callback=self.up_callback
+                               , down_callback=self.down_callback)
+        
+        my_rotary.setup_switch(debounce=300
+                               , long_press=True
+                               , sw_short_callback=self.sw_short
+                               , sw_long_callback=self.sw_long)
+        
+        my_rotary.watch()
 
