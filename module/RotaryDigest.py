@@ -8,6 +8,8 @@ Get's rotary queue and can return counter, position up or down, rotation positio
 @author: Charles Path
 """
 
+import time
+
 class RotaryDigest:
     def __init__(self):
         self.counter            = 0
@@ -62,5 +64,6 @@ class RotaryDigest:
     def longClikcs(self, q, qo):
         pass
     def calcTime():
+        bTime = time.now
         pass
     

@@ -12,7 +12,8 @@ from threading import Thread
 from queue import Queue
 from subprocess import call
 import MainDisplay as MD
-import config as CF
+#import config as CF
+import IntervalDigest as ID
 
 
 def StartPigPIOD():
@@ -56,14 +57,16 @@ def pRResult(q,qo):
     while True:
         rd.interval(q,qo)
         interval = qo.get()
-        CF.interval = interval
+        ID.Status(q.get())
         print("R:", interval)
 
 def pLResult(q,qo):
-    rd = RD.RotaryDigest()
+    rl = RD.RotaryDigest()
     while True:
-        rd.interval(q,qo)
-        print("L:",qo.get())
+        rl.interval(q,qo)
+        interval = qo.get()
+        ID.Volume(interval)
+        print("L:",interval)
 
 def LClickResult(qcl,qcol):
     #print("lClickResult")
@@ -74,12 +77,13 @@ def LClickResult(qcl,qcol):
         print("LC:",qcol.get())
 
 def mainDisplay():
+    #call('sudo pigpiod', shell=True)
     m = MD.Display()
     while True:
         m.main()
     
 if __name__ == "__main__":
-    StartPigPIOD()
+    #StartPigPIOD()
     
     qr = Queue()
     ql = Queue()
@@ -93,6 +97,7 @@ if __name__ == "__main__":
     qcol = Queue()
     
     
+    #### Right Button and Rotary ###################
     t1 = Thread(target = rightWorkerCall, args=(qr,))
     t2 = Thread(target = pRResult, args=(qr,qor))
     
@@ -100,13 +105,14 @@ if __name__ == "__main__":
     t4 = Thread(target = RClickResult, args=(qcr,qcor))
     
     
-    
+    #### Left Button and Rotary ###################
     t5 = Thread(target = leftWorkerCall, args=(ql,))
     t6 = Thread(target = pLResult, args=(ql,qol))
     
     t7 = Thread(target = leftClickCall, args=(qcl,))
     t8 = Thread(target = LClickResult, args=(qcl,qcol))
     
+    #mainDisplay
     t9 = Thread(target = mainDisplay)
     
     

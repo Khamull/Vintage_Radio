@@ -169,7 +169,7 @@ class Display:
 
 
     def draw_player(self):
-            #while CF.source == 0:
+            #while True:
                 
                 with canvas(self.device) as draw:
                     #basic outline Box and text rendered in portrait mode

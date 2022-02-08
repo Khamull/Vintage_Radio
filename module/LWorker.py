@@ -6,12 +6,12 @@ Created on Fri Jul 30 22:41:23 2021
 @author: Charles Path
 """
 from pigpio_encoder.rotary import Rotary
+import sys
 from queue import Queue as Q
-#qr = Q()
 
 class lWorker:
     def __init__(self):
-        self.ql = Q()
+        self.qr = Q()
         self.qc = Q()
 
     def rotary_callback(self, counter):
@@ -23,28 +23,33 @@ class lWorker:
         #print("Switch pressed")
     
     def sw_long(self):
-        #global qr
         self.qc.put("L")
         #print("Switch long press")
     
     def up_callback(self, counter):
         #output("1 \n")
-        #global qr
-        self.ql.put("1\n")
+        self.qr.put("1\n")
         #print("Up rotation")
         #print("Counter value: ", counter)
     
     def down_callback(self, counter):
         #output("0 \n")
-        #global qr
-        self.ql.put("0\n")
+
+        self.qr.put("0\n")
         #print("Down rotation")
         #print("Counter value: ", counter)
+    
+    def output(self, output):
+        sys.stdout.write(output)
+    
     def isClick(self, q):
         self.qc = q
     
     def isRotation(self, q):
-        self.ql = q
+        self.qr = q
+        
+
+
         
     def main(self):
         
@@ -62,7 +67,6 @@ class lWorker:
                                , long_press=True
                                , sw_short_callback=self.sw_short
                                , sw_long_callback=self.sw_long)
-        #self.qr = q
         
         my_rotary.watch()
 
